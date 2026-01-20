@@ -8,31 +8,31 @@
     }
   },
   "getting-started": {
-    "title": "📖 시작하기",
+    "title": "시작하기",
     "type": "page"
   },
   "agents": {
-    "title": "🤖 에이전트",
+    "title": "에이전트",
     "type": "page"
   },
   "commands": {
-    "title": "⚡ 커맨드",
+    "title": "커맨드",
     "type": "page"
   },
   "rules": {
-    "title": "📏 규칙",
+    "title": "규칙",
     "type": "page"
   },
   "skills": {
-    "title": "🎯 스킬",
+    "title": "스킬",
     "type": "page"
   },
   "advanced": {
-    "title": "⚙️ 고급 설정",
+    "title": "고급 설정",
     "type": "page"
   },
   "examples": {
-    "title": "📦 예시",
+    "title": "예시",
     "type": "page"
   }
 }

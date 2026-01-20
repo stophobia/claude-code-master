@@ -1,5 +1,15 @@
 import React from 'react'
 import Link from 'next/link'
+import { Bot, Zap, Ruler, Target, Anchor, Plug, ChevronDown, Github } from 'lucide-react'
+
+const features = [
+  { href: '/agents', Icon: Bot, title: '에이전트', desc: '서브에이전트로 위임된 작업을 효율적으로 처리합니다. 코드 리뷰, TDD, 리팩토링 등 다양한 전문 에이전트를 제공합니다.' },
+  { href: '/commands', Icon: Zap, title: '커맨드', desc: '슬래시 커맨드로 복잡한 워크플로우를 단순화합니다. /tdd, /code-review, /build-fix 등을 즉시 사용하세요.' },
+  { href: '/rules', Icon: Ruler, title: '규칙', desc: '일관된 코딩 스타일과 보안 가이드라인을 유지합니다. 팀 전체에 적용할 수 있는 표준화된 규칙을 설정하세요.' },
+  { href: '/skills', Icon: Target, title: '스킬', desc: '도메인별 전문 지식을 정의하고 공유합니다. 프론트엔드, 백엔드, 보안 등 다양한 스킬셋을 활용하세요.' },
+  { href: '/advanced/hooks', Icon: Anchor, title: '훅', desc: '이벤트 기반 자동화로 워크플로우를 강화합니다. 파일 저장, 커밋 등 다양한 이벤트에 훅을 설정하세요.' },
+  { href: '/advanced/mcp-servers', Icon: Plug, title: 'MCP 서버', desc: '외부 도구와 서비스를 Claude Code에 연결합니다. 데이터베이스, API, 클라우드 서비스를 통합하세요.' },
+]
 
 export default function LandingPage() {
   return (
@@ -86,8 +96,12 @@ export default function LandingPage() {
             <a href="https://github.com/revfactory/claude-code-master" className="btn-outline" style={{
               textDecoration: 'none',
               fontSize: '1.1rem',
-              color: 'white'
+              color: 'white',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem'
             }}>
+              <Github size={18} />
               GitHub
             </a>
           </div>
@@ -98,10 +112,9 @@ export default function LandingPage() {
           position: 'absolute',
           bottom: '2rem',
           color: 'white',
-          opacity: 0.7,
-          fontSize: '2rem'
+          opacity: 0.7
         }}>
-          ↓
+          <ChevronDown size={32} />
         </div>
       </div>
 
@@ -129,18 +142,12 @@ export default function LandingPage() {
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
             gap: '2rem'
           }}>
-            {/* Feature Cards */}
-            {[
-              { href: '/agents', icon: '🤖', title: '에이전트', desc: '서브에이전트로 위임된 작업을 효율적으로 처리합니다. 코드 리뷰, TDD, 리팩토링 등 다양한 전문 에이전트를 제공합니다.' },
-              { href: '/commands', icon: '⚡', title: '커맨드', desc: '슬래시 커맨드로 복잡한 워크플로우를 단순화합니다. /tdd, /code-review, /build-fix 등을 즉시 사용하세요.' },
-              { href: '/rules', icon: '📏', title: '규칙', desc: '일관된 코딩 스타일과 보안 가이드라인을 유지합니다. 팀 전체에 적용할 수 있는 표준화된 규칙을 설정하세요.' },
-              { href: '/skills', icon: '🎯', title: '스킬', desc: '도메인별 전문 지식을 정의하고 공유합니다. 프론트엔드, 백엔드, 보안 등 다양한 스킬셋을 활용하세요.' },
-              { href: '/advanced/hooks', icon: '🪝', title: '훅', desc: '이벤트 기반 자동화로 워크플로우를 강화합니다. 파일 저장, 커밋 등 다양한 이벤트에 훅을 설정하세요.' },
-              { href: '/advanced/mcp-servers', icon: '🔌', title: 'MCP 서버', desc: '외부 도구와 서비스를 Claude Code에 연결합니다. 데이터베이스, API, 클라우드 서비스를 통합하세요.' },
-            ].map((feature, index) => (
+            {features.map((feature, index) => (
               <Link key={index} href={feature.href} style={{ textDecoration: 'none' }}>
                 <div className="feature-card" style={{ padding: '2rem', height: '100%' }}>
-                  <div className="icon-box" style={{ marginBottom: '1.5rem' }}>{feature.icon}</div>
+                  <div className="icon-box" style={{ marginBottom: '1.5rem' }}>
+                    <feature.Icon size={28} color="white" />
+                  </div>
                   <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1rem', color: '#333' }}>
                     {feature.title}
                   </h3>

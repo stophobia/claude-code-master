@@ -1,6 +1,7 @@
 import React from 'react'
 import { DocsThemeConfig, useConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
+import { Pencil, Search, List, Edit3, MessageCircle, Sparkles } from 'lucide-react'
 
 const config: DocsThemeConfig = {
   logo: (
@@ -8,9 +9,13 @@ const config: DocsThemeConfig = {
       fontFamily: '"Noto Sans KR", sans-serif',
       fontSize: '1.3rem',
       fontWeight: 700,
-      color: '#0000CD'
+      color: '#0000CD',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem'
     }}>
-      ✏️ Claude Code 마스터
+      <Pencil size={20} />
+      Claude Code 마스터
     </span>
   ),
   project: {
@@ -51,14 +56,14 @@ const config: DocsThemeConfig = {
     }
   },
   toc: {
-    title: '📝 목차',
+    title: '목차',
     float: true,
   },
   editLink: {
-    text: '✍️ 이 페이지 수정하기 →'
+    text: '이 페이지 수정하기 →'
   },
   feedback: {
-    content: '💬 피드백 보내기 →',
+    content: '피드백 보내기 →',
     useLink: () => 'https://github.com/revfactory/claude-code-master/issues/new'
   },
   navigation: {
@@ -68,7 +73,7 @@ const config: DocsThemeConfig = {
   footer: {
     text: (
       <span style={{ fontFamily: '"Noto Sans KR", sans-serif', color: '#0000CD' }}>
-        ✨ Claude Code 마스터 - MIT License - {new Date().getFullYear()}
+        Claude Code 마스터 - {new Date().getFullYear()}
       </span>
     )
   },
@@ -80,7 +85,7 @@ const config: DocsThemeConfig = {
   primaryHue: 230,
   primarySaturation: 100,
   search: {
-    placeholder: '🔍 검색...',
+    placeholder: '검색...',
   },
   gitTimestamp: ({ timestamp }) => (
     <span style={{ fontFamily: '"Noto Sans KR", sans-serif', fontSize: '0.9rem' }}>
