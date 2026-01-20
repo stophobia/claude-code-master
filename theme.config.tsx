@@ -14,9 +14,9 @@ const config: DocsThemeConfig = {
     </span>
   ),
   project: {
-    link: 'https://github.com/YOUR_USERNAME/claude-code-master',
+    link: 'https://github.com/revfactory/claude-code-master',
   },
-  docsRepositoryBase: 'https://github.com/YOUR_USERNAME/claude-code-master/tree/main/docs',
+  docsRepositoryBase: 'https://github.com/revfactory/claude-code-master/tree/main/docs',
   useNextSeoProps() {
     const { asPath } = useRouter()
     if (asPath !== '/') {
@@ -59,7 +59,7 @@ const config: DocsThemeConfig = {
   },
   feedback: {
     content: '💬 피드백 보내기 →',
-    useLink: () => 'https://github.com/YOUR_USERNAME/claude-code-master/issues/new'
+    useLink: () => 'https://github.com/revfactory/claude-code-master/issues/new'
   },
   navigation: {
     prev: true,
