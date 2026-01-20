@@ -211,9 +211,6 @@ export default function LandingPage() {
                 Claude Code 공식 문서
               </a>
             </p>
-            <p style={{ color: '#aaa' }}>
-              MIT License · 자유롭게 사용하고 기여해 주세요 ✨
-            </p>
           </div>
         </div>
       </div>
