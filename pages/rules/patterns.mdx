@@ -1,0 +1,162 @@
+import { Callout } from 'nextra/components'
+
+# 공통 패턴
+
+자주 사용되는 코드 패턴입니다.
+
+## API 응답 형식
+
+```typescript
+interface ApiResponse<T> {
+  success: boolean
+  data?: T
+  error?: string
+  meta?: {
+    total: number
+    page: number
+    limit: number
+  }
+}
+```
+
+### 사용 예시
+
+```typescript
+// 성공 응답
+return {
+  success: true,
+  data: users,
+  meta: { total: 100, page: 1, limit: 10 }
+}
+
+// 오류 응답
+return {
+  success: false,
+  error: '사용자를 찾을 수 없습니다'
+}
+```
+
+## 커스텀 훅 패턴
+
+### useDebounce
+
+```typescript
+export function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value)
+
+  useEffect(() => {
+    const handler = setTimeout(() => setDebouncedValue(value), delay)
+    return () => clearTimeout(handler)
+  }, [value, delay])
+
+  return debouncedValue
+}
+```
+
+### useFetch
+
+```typescript
+export function useFetch<T>(url: string) {
+  const [data, setData] = useState<T | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
+
+  useEffect(() => {
+    fetch(url)
+      .then(res => res.json())
+      .then(setData)
+      .catch(setError)
+      .finally(() => setLoading(false))
+  }, [url])
+
+  return { data, loading, error }
+}
+```
+
+## 레포지토리 패턴
+
+```typescript
+interface Repository<T> {
+  findAll(filters?: Filters): Promise<T[]>
+  findById(id: string): Promise<T | null>
+  create(data: CreateDto): Promise<T>
+  update(id: string, data: UpdateDto): Promise<T>
+  delete(id: string): Promise<void>
+}
+
+// 구현 예시
+class UserRepository implements Repository<User> {
+  async findAll(filters?: UserFilters): Promise<User[]> {
+    const { data } = await supabase
+      .from('users')
+      .select('*')
+      .match(filters || {})
+    return data || []
+  }
+
+  async findById(id: string): Promise<User | null> {
+    const { data } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', id)
+      .single()
+    return data
+  }
+
+  // ... 나머지 메서드
+}
+```
+
+## 서비스 레이어 패턴
+
+```typescript
+class UserService {
+  constructor(private readonly repo: UserRepository) {}
+
+  async createUser(input: CreateUserInput): Promise<User> {
+    // 1. 검증
+    const validated = userSchema.parse(input)
+
+    // 2. 비즈니스 로직
+    const hashedPassword = await hash(validated.password)
+
+    // 3. 저장
+    return this.repo.create({
+      ...validated,
+      password: hashedPassword
+    })
+  }
+}
+```
+
+## 에러 핸들링 패턴
+
+```typescript
+class AppError extends Error {
+  constructor(
+    public message: string,
+    public statusCode: number = 500,
+    public code?: string
+  ) {
+    super(message)
+  }
+}
+
+// 사용
+throw new AppError('사용자를 찾을 수 없습니다', 404, 'USER_NOT_FOUND')
+```
+
+## 스켈레톤 프로젝트
+
+<Callout type="info" emoji="📐">
+  새로운 기능 구현 시 검증된 스켈레톤 프로젝트를 참고하세요.
+</Callout>
+
+1. 검증된 스켈레톤 프로젝트 검색
+2. 병렬 에이전트로 옵션 평가:
+   - 보안 평가
+   - 확장성 분석
+   - 관련성 점수
+   - 구현 계획
+3. 최적의 매치를 기반으로 클론
+4. 검증된 구조 내에서 반복 개발

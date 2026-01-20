@@ -1,0 +1,226 @@
+import { Callout, Steps, Tabs } from 'nextra/components'
+
+# 설치
+
+## Claude Code 설치
+
+<Tabs items={['npm', 'macOS', 'Linux']}>
+  <Tabs.Tab>
+    ```bash
+    npm install -g @anthropic-ai/claude-code
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    brew install claude-code
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    curl -fsSL https://claude.ai/install.sh | bash
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Everything Claude Code 설치
+
+<Steps>
+
+### 저장소 클론
+
+```bash
+git clone https://github.com/revfactory/everything-claude-code.git
+cd everything-claude-code
+```
+
+### 디렉토리 구조 확인
+
+```bash
+ls -la
+```
+
+출력:
+```
+agents/           # 전문 서브에이전트
+commands/         # 슬래시 커맨드
+rules/            # 가이드라인
+skills/           # 워크플로우 정의
+hooks/            # 이벤트 트리거
+mcp-configs/      # MCP 서버 설정
+examples/         # 예시 설정
+```
+
+### Claude 설정 디렉토리 생성
+
+```bash
+mkdir -p ~/.claude/{agents,rules,commands,skills}
+```
+
+### 원하는 설정 복사
+
+```bash
+# 모든 에이전트 복사
+cp agents/*.md ~/.claude/agents/
+
+# 모든 규칙 복사
+cp rules/*.md ~/.claude/rules/
+
+# 모든 커맨드 복사
+cp commands/*.md ~/.claude/commands/
+
+# 모든 스킬 복사
+cp -r skills/* ~/.claude/skills/
+```
+
+</Steps>
+
+## 선택적 설치
+
+필요한 것만 선택해서 설치할 수 있습니다.
+
+### 에이전트만 설치
+
+```bash
+# 코드 리뷰어만
+cp agents/code-reviewer.md ~/.claude/agents/
+
+# TDD 가이드만
+cp agents/tdd-guide.md ~/.claude/agents/
+
+# 보안 리뷰어만
+cp agents/security-reviewer.md ~/.claude/agents/
+```
+
+### 규칙만 설치
+
+```bash
+# 보안 규칙만
+cp rules/security.md ~/.claude/rules/
+
+# 코딩 스타일만
+cp rules/coding-style.md ~/.claude/rules/
+```
+
+### 커맨드만 설치
+
+```bash
+# TDD 커맨드만
+cp commands/tdd.md ~/.claude/commands/
+
+# 코드 리뷰 커맨드만
+cp commands/code-review.md ~/.claude/commands/
+```
+
+## 훅 설정
+
+훅은 `settings.json`에 추가해야 합니다.
+
+<Steps>
+
+### settings.json 열기
+
+```bash
+# 파일이 없으면 생성됩니다
+code ~/.claude/settings.json
+```
+
+### 훅 추가
+
+`hooks/hooks.json`의 내용을 `settings.json`에 복사합니다:
+
+```json filename="~/.claude/settings.json"
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "tool == \"Edit\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Edit tool is being used'"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+</Steps>
+
+## MCP 서버 설정
+
+<Callout type="warning" emoji="⚠️">
+  **주의**: MCP 서버를 너무 많이 활성화하면 컨텍스트 윈도우가 줄어듭니다!
+</Callout>
+
+<Steps>
+
+### claude.json 열기
+
+```bash
+code ~/.claude.json
+```
+
+### 원하는 MCP 서버 추가
+
+```json filename="~/.claude.json"
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_TOKEN_HERE"
+      }
+    }
+  }
+}
+```
+
+### API 키 설정
+
+`YOUR_*_HERE` 플레이스홀더를 실제 API 키로 교체하세요.
+
+</Steps>
+
+## 설치 확인
+
+```bash
+# Claude Code 버전 확인
+claude --version
+
+# 설정 디렉토리 확인
+ls ~/.claude/
+
+# 에이전트 목록 확인
+ls ~/.claude/agents/
+```
+
+## 문제 해결
+
+### 권한 오류
+
+```bash
+sudo chmod -R 755 ~/.claude/
+```
+
+### 설정이 적용되지 않음
+
+Claude Code를 재시작하세요:
+```bash
+claude --reset
+```
+
+### MCP 서버 연결 실패
+
+1. API 키가 올바른지 확인
+2. 네트워크 연결 확인
+3. MCP 서버 로그 확인:
+   ```bash
+   claude --debug
+   ```
+
+<Callout type="info" emoji="💡">
+  더 자세한 문제 해결은 [Claude Code 공식 문서](https://docs.anthropic.com/claude-code)를 참조하세요.
+</Callout>

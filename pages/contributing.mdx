@@ -1,0 +1,167 @@
+import { Callout } from 'nextra/components'
+
+# 기여하기
+
+Claude Code 마스터 프로젝트에 기여해 주셔서 감사합니다!
+
+## 기여 방법
+
+### 1. 이슈 제출
+
+버그를 발견하거나 새로운 기능을 제안하고 싶다면 GitHub Issues를 사용해 주세요.
+
+**버그 리포트 시 포함할 내용:**
+- 재현 단계
+- 예상 동작
+- 실제 동작
+- 환경 정보 (OS, Claude Code 버전)
+
+**기능 제안 시 포함할 내용:**
+- 사용 사례
+- 제안하는 해결 방법
+- 대안 고려사항
+
+### 2. Pull Request
+
+<Callout type="info">
+  PR을 제출하기 전에 관련 이슈를 먼저 생성해 주세요.
+</Callout>
+
+**PR 프로세스:**
+1. 저장소 Fork
+2. 기능 브랜치 생성 (`feature/amazing-feature`)
+3. 변경사항 커밋
+4. 브랜치 Push
+5. PR 생성
+
+### 3. 문서 개선
+
+문서 개선도 환영합니다:
+- 오타 수정
+- 예시 추가
+- 번역 개선
+- 새로운 가이드 작성
+
+## 개발 환경 설정
+
+```bash
+# 저장소 클론
+git clone https://github.com/YOUR_USERNAME/claude-code-master.git
+cd claude-code-master
+
+# 문서 사이트 실행
+cd docs
+npm install
+npm run dev
+```
+
+## 커밋 메시지 규칙
+
+커밋 메시지는 **한글**로 작성합니다.
+
+**형식:**
+```
+<타입>: <설명>
+
+<선택적 본문>
+```
+
+**타입:**
+| 타입 | 설명 |
+|------|------|
+| `feat` | 새 기능 |
+| `fix` | 버그 수정 |
+| `docs` | 문서 수정 |
+| `refactor` | 리팩토링 |
+| `test` | 테스트 |
+| `chore` | 기타 |
+
+**예시:**
+```
+feat: 새로운 에이전트 추가
+
+- performance-analyzer 에이전트 구현
+- 관련 문서 작성
+```
+
+## 코드 스타일
+
+### 마크다운
+
+- 헤딩은 순차적으로 사용 (`#` → `##` → `###`)
+- 코드 블록에 언어 지정
+- 링크는 설명적인 텍스트 사용
+
+### MDX
+
+- Nextra 컴포넌트 활용 (`Callout`, `Tabs`, `Cards`)
+- 일관된 들여쓰기
+- 적절한 공백
+
+## 디렉토리 구조
+
+```
+claude-code-master/
+├── agents/           # 에이전트 마크다운
+├── commands/         # 커맨드 마크다운
+├── rules/           # 규칙 마크다운
+├── skills/          # 스킬 마크다운
+├── docs/            # Nextra 문서 사이트
+│   ├── pages/       # MDX 페이지
+│   └── public/      # 정적 파일
+└── README.md
+```
+
+## 새 콘텐츠 추가
+
+### 에이전트 추가
+
+1. `agents/` 폴더에 마크다운 파일 생성
+2. `docs/pages/agents/` 폴더에 MDX 파일 생성
+3. `docs/pages/agents/_meta.json` 업데이트
+
+### 커맨드 추가
+
+1. `commands/` 폴더에 마크다운 파일 생성
+2. `docs/pages/commands/` 폴더에 MDX 파일 생성
+3. `docs/pages/commands/_meta.json` 업데이트
+
+### 스킬 추가
+
+1. `skills/` 폴더에 마크다운 파일 생성
+2. `docs/pages/skills/` 폴더에 MDX 파일 생성
+3. `docs/pages/skills/_meta.json` 업데이트
+
+## 테스트
+
+PR 제출 전 확인사항:
+
+```bash
+# 문서 빌드 테스트
+cd docs
+npm run build
+
+# 로컬에서 확인
+npm run dev
+```
+
+## 리뷰 프로세스
+
+1. PR 제출
+2. 자동 빌드 테스트
+3. 메인테이너 리뷰
+4. 필요시 수정 요청
+5. 승인 및 머지
+
+## 라이선스
+
+이 프로젝트에 기여하면 MIT 라이선스에 동의하는 것으로 간주됩니다.
+
+## 질문이 있으신가요?
+
+- GitHub Issues 사용
+- Discussion 탭 활용
+
+<Callout type="info">
+  모든 기여를 환영합니다! 작은 오타 수정부터 새로운 기능까지 모두 소중합니다.
+</Callout>

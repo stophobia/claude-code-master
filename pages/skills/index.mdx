@@ -1,0 +1,113 @@
+import { Callout, Cards, Card } from 'nextra/components'
+
+# 스킬
+
+Claude Code 스킬은 특정 도메인에 대한 전문 지식과 패턴을 정의합니다.
+
+<Callout type="info">
+  스킬은 `~/.claude/skills/` 또는 프로젝트의 `.claude/skills/` 디렉토리에 저장됩니다.
+</Callout>
+
+## 스킬이란?
+
+스킬은 특정 기술 스택, 패턴, 또는 워크플로우에 대한 전문 지식을 담은 마크다운 파일입니다. Claude Code가 코드를 작성하거나 리뷰할 때 이 지식을 활용합니다.
+
+## 스킬 목록
+
+<Cards>
+  <Card title="코딩 표준" href="/skills/coding-standards">
+    TypeScript, JavaScript, React, Node.js 개발을 위한 범용 코딩 표준과 모범 사례
+  </Card>
+  <Card title="백엔드 패턴" href="/skills/backend-patterns">
+    API 설계, 데이터베이스 최적화, Node.js/Express/Next.js API 라우트 패턴
+  </Card>
+  <Card title="프론트엔드 패턴" href="/skills/frontend-patterns">
+    React, Next.js, 상태 관리, 성능 최적화, UI 모범 사례
+  </Card>
+  <Card title="TDD 워크플로우" href="/skills/tdd-workflow">
+    테스트 주도 개발 방법론, 80%+ 커버리지, 단위/통합/E2E 테스트
+  </Card>
+  <Card title="보안 리뷰" href="/skills/security-review">
+    인증, 입력 검증, 시크릿 관리, OWASP Top 10 취약점 방지
+  </Card>
+  <Card title="ClickHouse" href="/skills/clickhouse">
+    ClickHouse 데이터베이스 패턴, 쿼리 최적화, 분석 워크로드
+  </Card>
+  <Card title="프로젝트 가이드라인" href="/skills/project-guidelines">
+    프로젝트별 스킬 템플릿 예시
+  </Card>
+</Cards>
+
+## 스킬 구조
+
+```markdown
+---
+name: skill-name
+description: 스킬에 대한 간단한 설명
+---
+
+# 스킬 제목
+
+## 활성화 시점
+
+- 이 스킬이 사용되어야 하는 상황
+
+## 핵심 원칙
+
+### 원칙 1
+설명...
+
+### 원칙 2
+설명...
+
+## 코드 예시
+
+\`\`\`typescript
+// 예시 코드
+\`\`\`
+```
+
+## 스킬 활성화
+
+스킬은 다음 방법으로 활성화됩니다:
+
+1. **자동 활성화**: 파일 확장자나 프로젝트 구조 기반
+2. **명시적 참조**: CLAUDE.md에서 스킬 참조
+3. **컨텍스트 기반**: 작업 내용에 따라 자동 선택
+
+## 커스텀 스킬 생성
+
+```bash
+# 글로벌 스킬
+~/.claude/skills/my-skill.md
+
+# 프로젝트 스킬
+.claude/skills/project-skill.md
+```
+
+### 스킬 예시
+
+```markdown
+---
+name: react-testing
+description: React 컴포넌트 테스팅 패턴
+---
+
+# React Testing Patterns
+
+## 활성화 시점
+
+- React 컴포넌트 테스트 작성
+- Testing Library 사용
+
+## 테스트 구조
+
+\`\`\`typescript
+describe('Component', () => {
+  it('renders correctly', () => {
+    render(<Component />)
+    expect(screen.getByRole('button')).toBeInTheDocument()
+  })
+})
+\`\`\`
+```

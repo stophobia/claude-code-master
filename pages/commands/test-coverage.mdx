@@ -1,0 +1,101 @@
+import { Callout } from 'nextra/components'
+
+# /test-coverage (커버리지)
+
+테스트 커버리지를 분석하고 누락된 테스트 생성.
+
+<Callout type="info" emoji="📊">
+  **`tdd-guide` 에이전트**와 연계하여 테스트 커버리지를 분석합니다.
+</Callout>
+
+## 이 커맨드가 하는 일
+
+1. 커버리지와 함께 테스트 실행: `npm test --coverage`
+2. 커버리지 리포트 분석 (`coverage/coverage-summary.json`)
+3. 80% 커버리지 임계값 미만 파일 식별
+4. 커버되지 않은 각 파일에 대해:
+   - 테스트되지 않은 코드 경로 분석
+   - 함수에 대한 단위 테스트 생성
+   - API에 대한 통합 테스트 생성
+   - 중요 흐름에 대한 E2E 테스트 생성
+5. 새 테스트 통과 확인
+6. 전후 커버리지 지표 표시
+7. 프로젝트가 80%+ 전체 커버리지 달성 확인
+
+## 커버리지 요구사항
+
+| 지표 | 최소 요구 | 목표 |
+|------|----------|------|
+| 브랜치 | 80% | 90%+ |
+| 함수 | 80% | 90%+ |
+| 라인 | 80% | 90%+ |
+| 문장 | 80% | 90%+ |
+
+## 집중 영역
+
+커버리지 분석 시 집중:
+
+- **행복한 경로 시나리오** - 정상 흐름
+- **오류 처리** - 예외 상황
+- **엣지 케이스** - null, undefined, 비어 있음
+- **경계 조건** - 최소/최대 값
+
+## 사용 예시
+
+```bash
+# 커버리지 분석 실행
+/test-coverage
+
+# 출력 예시
+## 테스트 커버리지 분석
+
+### 현재 커버리지
+- 브랜치: 72%
+- 함수: 78%
+- 라인: 75%
+- 문장: 76%
+
+### 커버리지 미달 파일 (80% 미만)
+
+1. src/services/market.ts (65%)
+   - 미커버 함수: getMarketPrice, calculateFee
+   - 미커버 브랜치: if (error) 블록
+
+2. src/api/trades.ts (58%)
+   - 미커버 함수: executeTrade
+   - 미커버 브랜치: error handling
+
+### 생성할 테스트
+
+1. src/services/market.test.ts
+   - getMarketPrice 테스트 추가
+   - calculateFee 테스트 추가
+   - 오류 처리 테스트 추가
+
+2. src/api/trades.test.ts
+   - executeTrade 테스트 추가
+
+### 결과
+- 이전 커버리지: 75%
+- 현재 커버리지: 85%
+- 개선: +10%
+
+✅ 80%+ 커버리지 달성!
+```
+
+## 명령어
+
+```bash
+# 커버리지와 함께 테스트 실행
+npm test --coverage
+
+# 커버리지 리포트 보기
+open coverage/lcov-report/index.html
+
+# 특정 파일 커버리지
+npm test --coverage --collectCoverageFrom="src/services/*.ts"
+```
+
+<Callout type="warning" emoji="💡">
+  **팁**: 100% 커버리지가 목표가 아닙니다. 의미 있는 테스트가 중요합니다.
+</Callout>

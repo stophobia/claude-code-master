@@ -1,0 +1,303 @@
+import { Callout, Steps } from 'nextra/components'
+
+# TDD 워크플로우
+
+테스트 주도 개발 방법론입니다. 모든 코드 개발이 TDD 원칙과 포괄적인 테스트 커버리지를 따르도록 보장합니다.
+
+## 활성화 시점
+
+- 새 기능이나 기능성 작성
+- 버그나 이슈 수정
+- 기존 코드 리팩토링
+- API 엔드포인트 추가
+- 새 컴포넌트 생성
+
+## 핵심 원칙
+
+### 1. 코드 전에 테스트
+
+<Callout type="warning">
+  항상 테스트를 먼저 작성한 다음, 테스트를 통과시키는 코드를 구현합니다.
+</Callout>
+
+### 2. 커버리지 요구사항
+
+| 항목 | 요구사항 |
+|------|----------|
+| 최소 커버리지 | 80% (단위 + 통합 + E2E) |
+| 엣지 케이스 | 모두 커버 |
+| 오류 시나리오 | 테스트 필수 |
+| 경계 조건 | 검증 필수 |
+
+### 3. 테스트 타입
+
+| 타입 | 대상 |
+|------|------|
+| **단위 테스트** | 개별 함수, 컴포넌트 로직, 순수 함수, 헬퍼 |
+| **통합 테스트** | API 엔드포인트, 데이터베이스 작업, 서비스 상호작용 |
+| **E2E 테스트** | 중요 사용자 흐름, 완전한 워크플로우, UI 상호작용 |
+
+## TDD 워크플로우 단계
+
+<Steps>
+### 사용자 여정 작성
+
+```
+[역할]로서, 나는 [행동]을 하고 싶다, [이점]을 위해
+
+예시:
+사용자로서, 나는 시장을 의미적으로 검색하고 싶다,
+정확한 키워드 없이도 관련 시장을 찾을 수 있도록.
+```
+
+### 테스트 케이스 생성
+
+```typescript
+describe('의미적 검색', () => {
+  it('쿼리에 관련된 마켓 반환', async () => {
+    // 테스트 구현
+  })
+
+  it('빈 쿼리를 우아하게 처리', async () => {
+    // 엣지 케이스 테스트
+  })
+
+  it('Redis 불가 시 부분 문자열 검색으로 폴백', async () => {
+    // 폴백 동작 테스트
+  })
+})
+```
+
+### 테스트 실행 (실패해야 함)
+
+```bash
+npm test
+# 테스트가 실패해야 함 - 아직 구현하지 않았으므로
+```
+
+### 코드 구현
+
+테스트를 통과시키는 최소한의 코드 작성:
+
+```typescript
+// 테스트에 의해 가이드되는 구현
+export async function searchMarkets(query: string) {
+  // 여기에 구현
+}
+```
+
+### 테스트 다시 실행
+
+```bash
+npm test
+# 이제 테스트가 통과해야 함
+```
+
+### 리팩토링
+
+테스트를 그린으로 유지하면서 코드 품질 개선:
+- 중복 제거
+- 이름 개선
+- 성능 최적화
+
+### 커버리지 검증
+
+```bash
+npm run test:coverage
+# 80%+ 커버리지 달성 확인
+```
+</Steps>
+
+## 테스팅 패턴
+
+### 단위 테스트 패턴 (Jest/Vitest)
+
+```typescript
+import { render, screen, fireEvent } from '@testing-library/react'
+import { Button } from './Button'
+
+describe('Button 컴포넌트', () => {
+  it('올바른 텍스트로 렌더링', () => {
+    render(<Button>클릭하세요</Button>)
+    expect(screen.getByText('클릭하세요')).toBeInTheDocument()
+  })
+
+  it('클릭 시 onClick 호출', () => {
+    const handleClick = jest.fn()
+    render(<Button onClick={handleClick}>클릭</Button>)
+
+    fireEvent.click(screen.getByRole('button'))
+
+    expect(handleClick).toHaveBeenCalledTimes(1)
+  })
+
+  it('disabled prop이 true면 비활성화됨', () => {
+    render(<Button disabled>클릭</Button>)
+    expect(screen.getByRole('button')).toBeDisabled()
+  })
+})
+```
+
+### API 통합 테스트 패턴
+
+```typescript
+import { NextRequest } from 'next/server'
+import { GET } from './route'
+
+describe('GET /api/markets', () => {
+  it('마켓을 성공적으로 반환', async () => {
+    const request = new NextRequest('http://localhost/api/markets')
+    const response = await GET(request)
+    const data = await response.json()
+
+    expect(response.status).toBe(200)
+    expect(data.success).toBe(true)
+    expect(Array.isArray(data.data)).toBe(true)
+  })
+
+  it('쿼리 파라미터 검증', async () => {
+    const request = new NextRequest('http://localhost/api/markets?limit=invalid')
+    const response = await GET(request)
+
+    expect(response.status).toBe(400)
+  })
+})
+```
+
+### E2E 테스트 패턴 (Playwright)
+
+```typescript
+import { test, expect } from '@playwright/test'
+
+test('사용자가 마켓을 검색하고 필터링할 수 있음', async ({ page }) => {
+  // 마켓 페이지로 이동
+  await page.goto('/')
+  await page.click('a[href="/markets"]')
+
+  // 페이지 로드 확인
+  await expect(page.locator('h1')).toContainText('마켓')
+
+  // 마켓 검색
+  await page.fill('input[placeholder="마켓 검색"]', 'election')
+
+  // 디바운스와 결과 대기
+  await page.waitForTimeout(600)
+
+  // 검색 결과 표시 확인
+  const results = page.locator('[data-testid="market-card"]')
+  await expect(results).toHaveCount(5, { timeout: 5000 })
+})
+```
+
+## 테스트 파일 구성
+
+```
+src/
+├── components/
+│   ├── Button/
+│   │   ├── Button.tsx
+│   │   ├── Button.test.tsx          # 단위 테스트
+│   │   └── Button.stories.tsx       # Storybook
+│   └── MarketCard/
+│       ├── MarketCard.tsx
+│       └── MarketCard.test.tsx
+├── app/
+│   └── api/
+│       └── markets/
+│           ├── route.ts
+│           └── route.test.ts         # 통합 테스트
+└── e2e/
+    ├── markets.spec.ts               # E2E 테스트
+    ├── trading.spec.ts
+    └── auth.spec.ts
+```
+
+## 외부 서비스 모킹
+
+### Supabase 모킹
+
+```typescript
+jest.mock('@/lib/supabase', () => ({
+  supabase: {
+    from: jest.fn(() => ({
+      select: jest.fn(() => ({
+        eq: jest.fn(() => Promise.resolve({
+          data: [{ id: 1, name: '테스트 마켓' }],
+          error: null
+        }))
+      }))
+    }))
+  }
+}))
+```
+
+### Redis 모킹
+
+```typescript
+jest.mock('@/lib/redis', () => ({
+  searchMarketsByVector: jest.fn(() => Promise.resolve([
+    { slug: 'test-market', similarity_score: 0.95 }
+  ])),
+  checkRedisHealth: jest.fn(() => Promise.resolve({ connected: true }))
+}))
+```
+
+## 피해야 할 일반적인 테스팅 실수
+
+| 잘못됨 | 올바름 |
+|--------|--------|
+| 내부 상태 테스트 | 사용자에게 보이는 동작 테스트 |
+| 취약한 CSS 선택자 | 시맨틱 선택자 사용 |
+| 테스트 간 의존성 | 독립적인 테스트 |
+| 구현 세부사항 테스트 | 행동 테스트 |
+
+```typescript
+// 잘못됨: 내부 상태 테스트
+expect(component.state.count).toBe(5)
+
+// 올바름: 사용자가 보는 것 테스트
+expect(screen.getByText('Count: 5')).toBeInTheDocument()
+```
+
+```typescript
+// 잘못됨: 취약한 선택자
+await page.click('.css-class-xyz')
+
+// 올바름: 시맨틱 선택자
+await page.click('button:has-text("제출")')
+await page.click('[data-testid="submit-button"]')
+```
+
+## 커버리지 임계값
+
+```json
+{
+  "jest": {
+    "coverageThresholds": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  }
+}
+```
+
+## 모범 사례
+
+1. **테스트 먼저 작성** - 항상 TDD
+2. **테스트당 하나의 어설션** - 단일 동작에 집중
+3. **설명적인 테스트 이름** - 무엇이 테스트되는지 설명
+4. **Arrange-Act-Assert** - 명확한 테스트 구조
+5. **외부 의존성 모킹** - 단위 테스트 격리
+6. **엣지 케이스 테스트** - Null, undefined, 빈 값, 큰 값
+7. **오류 경로 테스트** - 해피 패스만 아니라
+8. **테스트를 빠르게 유지** - 단위 테스트당 50ms 미만
+9. **테스트 후 정리** - 사이드 이펙트 없음
+10. **커버리지 리포트 검토** - 갭 식별
+
+<Callout type="error">
+  테스트는 선택사항이 아닙니다. 테스트는 자신있는 리팩토링, 빠른 개발, 프로덕션 신뢰성을 가능하게 하는 안전망입니다.
+</Callout>

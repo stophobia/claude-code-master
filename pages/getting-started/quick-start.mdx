@@ -1,0 +1,230 @@
+import { Callout, Steps, Cards, Card } from 'nextra/components'
+
+# 빠른 시작
+
+5분 안에 Everything Claude Code를 시작하세요!
+
+## 원클릭 설치
+
+```bash
+# 저장소 클론 및 전체 설정 복사
+git clone https://github.com/revfactory/everything-claude-code.git && \
+cd everything-claude-code && \
+mkdir -p ~/.claude/{agents,rules,commands,skills} && \
+cp agents/*.md ~/.claude/agents/ && \
+cp rules/*.md ~/.claude/rules/ && \
+cp commands/*.md ~/.claude/commands/ && \
+cp -r skills/* ~/.claude/skills/
+```
+
+## 추천 설정 조합
+
+### 입문자용 (Essential)
+
+가장 기본적이고 유용한 설정만:
+
+```bash
+# 필수 에이전트
+cp agents/code-reviewer.md ~/.claude/agents/
+cp agents/tdd-guide.md ~/.claude/agents/
+
+# 필수 규칙
+cp rules/security.md ~/.claude/rules/
+cp rules/coding-style.md ~/.claude/rules/
+
+# 필수 커맨드
+cp commands/code-review.md ~/.claude/commands/
+cp commands/tdd.md ~/.claude/commands/
+```
+
+### 백엔드 개발자용
+
+```bash
+# 에이전트
+cp agents/code-reviewer.md ~/.claude/agents/
+cp agents/security-reviewer.md ~/.claude/agents/
+cp agents/architect.md ~/.claude/agents/
+
+# 규칙
+cp rules/security.md ~/.claude/rules/
+cp rules/patterns.md ~/.claude/rules/
+cp rules/testing.md ~/.claude/rules/
+
+# 스킬
+cp skills/backend-patterns.md ~/.claude/skills/
+```
+
+### 프론트엔드 개발자용
+
+```bash
+# 에이전트
+cp agents/code-reviewer.md ~/.claude/agents/
+cp agents/e2e-runner.md ~/.claude/agents/
+
+# 규칙
+cp rules/coding-style.md ~/.claude/rules/
+cp rules/testing.md ~/.claude/rules/
+
+# 스킬
+cp skills/frontend-patterns.md ~/.claude/skills/
+```
+
+### 풀스택 개발자용 (전체)
+
+```bash
+# 모든 설정 복사
+cp agents/*.md ~/.claude/agents/
+cp rules/*.md ~/.claude/rules/
+cp commands/*.md ~/.claude/commands/
+cp -r skills/* ~/.claude/skills/
+```
+
+## 첫 번째 명령 실행
+
+<Steps>
+
+### 프로젝트 디렉토리로 이동
+
+```bash
+cd /your/project/path
+```
+
+### Claude Code 시작
+
+```bash
+claude
+```
+
+### 커맨드 사용해보기
+
+```bash
+# 코드 리뷰 요청
+/code-review
+
+# TDD 워크플로우 시작
+/tdd
+
+# 빌드 오류 수정
+/build-fix
+```
+
+</Steps>
+
+## 동작 확인
+
+### 에이전트 확인
+
+```bash
+# 에이전트 목록
+ls ~/.claude/agents/
+
+# 특정 에이전트 내용 확인
+cat ~/.claude/agents/code-reviewer.md
+```
+
+### 커맨드 확인
+
+Claude Code 내에서:
+```
+# 사용 가능한 커맨드 목록
+/help
+```
+
+## 커스터마이징 시작
+
+### 1. 에이전트 수정
+
+```bash
+# 에이전트 파일 편집
+code ~/.claude/agents/code-reviewer.md
+```
+
+본인의 코딩 스타일에 맞게 수정:
+
+```markdown
+---
+name: code-reviewer
+description: 우리 팀의 코딩 컨벤션에 맞춘 코드 리뷰
+tools: Read, Grep, Glob
+model: sonnet
+---
+
+# 코드 리뷰어
+
+## 우리 팀 규칙
+- 변수명은 camelCase 사용
+- 함수는 20줄 이하로 유지
+- 모든 public 함수에 JSDoc 작성
+...
+```
+
+### 2. 규칙 추가
+
+```bash
+# 새 규칙 파일 생성
+cat > ~/.claude/rules/my-team-rules.md << 'EOF'
+# 우리 팀 규칙
+
+## 코드 스타일
+- TypeScript strict mode 필수
+- ESLint + Prettier 사용
+
+## Git 컨벤션
+- 커밋 메시지는 한글로 작성
+- PR은 3명 이상 승인 필요
+EOF
+```
+
+### 3. 프로젝트별 설정
+
+프로젝트 루트에 `CLAUDE.md` 생성:
+
+```bash
+cat > CLAUDE.md << 'EOF'
+# 프로젝트 설정
+
+이 프로젝트는 Next.js 14 + TypeScript를 사용합니다.
+
+## 규칙
+- src/ 디렉토리 구조 사용
+- Tailwind CSS로 스타일링
+- Prisma ORM 사용
+
+## 중요 파일
+- src/app/ - 페이지 및 라우트
+- src/components/ - 재사용 컴포넌트
+- prisma/schema.prisma - 데이터 모델
+EOF
+```
+
+## 자주 사용하는 워크플로우
+
+<Cards>
+  <Card
+    title="TDD 워크플로우"
+    href="/commands/tdd"
+  />
+  <Card
+    title="코드 리뷰"
+    href="/commands/code-review"
+  />
+  <Card
+    title="빌드 오류 수정"
+    href="/commands/build-fix"
+  />
+  <Card
+    title="E2E 테스트"
+    href="/commands/e2e"
+  />
+</Cards>
+
+## 다음 단계
+
+<Callout type="info" emoji="📚">
+  **더 알아보기**
+
+  - [에이전트 상세 설명](/agents) - 각 에이전트의 역할과 사용법
+  - [커맨드 가이드](/commands) - 모든 슬래시 커맨드 설명
+  - [규칙 작성법](/rules) - 효과적인 규칙 작성 방법
+  - [고급 설정](/advanced) - 훅, MCP 서버, 플러그인 설정
+</Callout>

@@ -1,0 +1,238 @@
+import { Callout } from 'nextra/components'
+
+# 사용자 CLAUDE.md
+
+사용자 홈 디렉토리에 위치하는 글로벌 CLAUDE.md 파일의 예시입니다.
+
+## 파일 위치
+
+```bash
+~/.claude/CLAUDE.md
+```
+
+## 기본 구조
+
+```markdown
+# 사용자 설정
+
+## 커밋 메시지 규칙
+커밋메시지는 한글로 작성
+
+## 코딩 스타일
+선호하는 코딩 스타일 및 패턴
+
+## 도구 설정
+자주 사용하는 도구 및 설정
+```
+
+## 실제 예시: 프론트엔드 개발자
+
+```markdown
+# 사용자 설정
+
+## 커밋 메시지
+커밋메시지는 한글로 작성
+
+## 코딩 스타일
+
+### TypeScript
+- 항상 strict 모드 사용
+- any 타입 사용 금지
+- 명시적 반환 타입 선호
+
+### React
+- 함수형 컴포넌트만 사용
+- 커스텀 훅으로 로직 분리
+- Props는 인터페이스로 정의
+
+### 테스트
+- Jest + React Testing Library 사용
+- 각 컴포넌트에 테스트 파일 작성
+- 커버리지 80% 이상 유지
+
+## 선호하는 패턴
+
+### 컴포넌트 구조
+\`\`\`typescript
+interface Props {
+  children: React.ReactNode
+}
+
+export function Component({ children }: Props) {
+  return <div>{children}</div>
+}
+\`\`\`
+
+### 커스텀 훅
+\`\`\`typescript
+export function useCustomHook() {
+  const [state, setState] = useState(null)
+
+  useEffect(() => {
+    // effect
+  }, [])
+
+  return { state, setState }
+}
+\`\`\`
+
+## 자주 사용하는 에이전트
+- planner: 복잡한 기능 계획
+- code-reviewer: 코드 리뷰
+- tdd-guide: 테스트 작성
+
+## 피해야 할 것
+- console.log (프로덕션 코드)
+- 이모지 (코드/주석)
+- any 타입
+```
+
+## 실제 예시: 백엔드 개발자
+
+```markdown
+# 사용자 설정
+
+## 커밋 메시지
+커밋메시지는 한글로 작성
+
+## 코딩 스타일
+
+### Python
+- PEP 8 준수
+- Type hints 필수
+- Google 스타일 docstring
+
+### API 설계
+- RESTful 원칙 준수
+- 버전 관리 필수
+- 일관된 응답 형식
+
+### 데이터베이스
+- 항상 파라미터화된 쿼리 사용
+- N+1 쿼리 방지
+- 인덱스 최적화 고려
+
+## 선호하는 패턴
+
+### 서비스 레이어
+\`\`\`python
+class UserService:
+    def __init__(self, repo: UserRepository):
+        self.repo = repo
+
+    async def get_user(self, user_id: int) -> User:
+        return await self.repo.find_by_id(user_id)
+\`\`\`
+
+### 에러 처리
+\`\`\`python
+class AppError(Exception):
+    def __init__(self, message: str, status_code: int = 500):
+        self.message = message
+        self.status_code = status_code
+\`\`\`
+
+## 보안 규칙
+- 하드코딩된 시크릿 금지
+- 모든 입력 검증
+- SQL 인젝션 방지
+- 적절한 로깅 (민감 정보 제외)
+
+## 자주 사용하는 에이전트
+- architect: 시스템 설계
+- security-reviewer: 보안 검토
+- build-error-resolver: 빌드 오류 해결
+```
+
+## 실제 예시: 풀스택 개발자
+
+```markdown
+# 사용자 설정
+
+## 커밋 메시지
+커밋메시지는 한글로 작성
+
+## 일반 규칙
+
+### 코드 품질
+- 테스트 커버리지 80% 이상
+- 린트 오류 0
+- 타입 오류 0
+
+### 보안
+- 시크릿은 환경 변수로
+- 입력 검증 필수
+- HTTPS 강제
+
+### 문서
+- 문서 파일 자동 생성 금지
+- README는 요청 시에만 업데이트
+
+## 프론트엔드 규칙
+
+### React/Next.js
+- App Router 사용
+- 서버 컴포넌트 우선
+- 클라이언트 컴포넌트 최소화
+
+### 스타일
+- TailwindCSS 사용
+- CSS-in-JS 피하기
+
+## 백엔드 규칙
+
+### API
+- RESTful 설계
+- OpenAPI 문서 자동 생성
+- 버전 관리
+
+### 데이터베이스
+- 마이그레이션 필수
+- 롤백 가능하게 설계
+
+## 워크플로우
+
+### 새 기능
+1. planner 에이전트로 계획
+2. tdd-guide로 테스트 먼저
+3. 구현
+4. code-reviewer로 리뷰
+
+### 버그 수정
+1. 재현 테스트 작성
+2. 수정
+3. 테스트 통과 확인
+
+## 자동화
+
+### 커밋 전
+- lint
+- type-check
+- test
+
+### PR 전
+- 전체 테스트
+- 빌드 확인
+```
+
+## 사용자 CLAUDE.md 작성 팁
+
+<Callout type="info">
+  효과적인 사용자 CLAUDE.md 작성을 위한 팁
+</Callout>
+
+### 1. 프로젝트 공통 규칙만 포함
+
+프로젝트별 규칙은 프로젝트 CLAUDE.md에 작성하세요.
+
+### 2. 개인 선호도 명시
+
+Claude가 당신의 코딩 스타일을 이해하도록 도와주세요.
+
+### 3. 자주 사용하는 패턴 문서화
+
+반복적으로 사용하는 패턴을 예시와 함께 작성하세요.
+
+### 4. 간결하게 유지
+
+너무 길면 효과가 떨어집니다. 핵심만 작성하세요.

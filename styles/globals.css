@@ -1,0 +1,362 @@
+/* Everything Claude Code 테마 */
+
+/* 기본 폰트 및 색상 설정 */
+:root {
+  /* 파란 볼펜 잉크 색상 */
+  --pen-blue: #0000CD;
+  --pen-blue-light: #4169E1;
+
+  /* 빨간 강조 색상 */
+  --red-ink: #FF0000;
+  --red-ink-dark: #CC0000;
+
+  /* 배경 */
+  --paper-bg: #FAFAFA;
+  --paper-bg-dark: #2D2D2D;
+  --paper-line: #E8E8E8;
+
+  /* 폰트 - 가독성 좋은 폰트 */
+  --font-main: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-title: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* 라이트 모드 */
+html[class~="light"] {
+  --nextra-bg: var(--paper-bg);
+}
+
+html[class~="light"] body {
+  background-color: var(--paper-bg);
+}
+
+/* 다크 모드 */
+html[class~="dark"] {
+  --nextra-bg: #1a1a1a;
+}
+
+html[class~="dark"] body {
+  background-color: #1a1a1a;
+}
+
+/* 메인 콘텐츠 영역 */
+.nextra-content {
+  font-family: var(--font-main) !important;
+}
+
+/* 제목 스타일 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title) !important;
+  color: var(--pen-blue) !important;
+  position: relative;
+}
+
+html[class~="dark"] h1,
+html[class~="dark"] h2,
+html[class~="dark"] h3,
+html[class~="dark"] h4,
+html[class~="dark"] h5,
+html[class~="dark"] h6 {
+  color: #6B8DD6 !important;
+}
+
+h1 {
+  font-size: 2.5rem !important;
+  border-bottom: 3px solid var(--pen-blue);
+  padding-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 2rem !important;
+}
+
+h2::before {
+  content: "★ ";
+  color: var(--red-ink);
+}
+
+h3 {
+  font-size: 1.5rem !important;
+}
+
+h3::before {
+  content: "→ ";
+  color: var(--pen-blue);
+}
+
+/* 본문 텍스트 */
+p, li, td, th {
+  font-family: var(--font-main) !important;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+html[class~="dark"] p,
+html[class~="dark"] li,
+html[class~="dark"] td,
+html[class~="dark"] th {
+  color: #E0E0E0;
+}
+
+/* 강조 텍스트 - 빨간펜 스타일 */
+strong, b {
+  color: var(--red-ink) !important;
+  font-family: var(--font-title) !important;
+}
+
+em, i {
+  color: var(--pen-blue-light);
+  font-style: normal;
+  text-decoration: underline wavy var(--pen-blue-light);
+}
+
+/* 링크 스타일 */
+a {
+  color: var(--pen-blue) !important;
+  text-decoration: none;
+  border-bottom: 2px dashed var(--pen-blue);
+  transition: all 0.2s;
+}
+
+a:hover {
+  color: var(--red-ink) !important;
+  border-bottom-color: var(--red-ink);
+}
+
+/* 코드 블록 */
+pre {
+  background: #F5F5F5 !important;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px !important;
+  font-family: 'Menlo', 'Monaco', 'Consolas', monospace !important;
+}
+
+html[class~="dark"] pre {
+  background: #2D2D2D !important;
+  border-color: #444;
+}
+
+code {
+  font-family: 'Menlo', 'Monaco', 'Consolas', monospace !important;
+  background: #F0F0F0;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+html[class~="dark"] code {
+  background: #3A3A3A;
+}
+
+/* 인라인 코드 */
+:not(pre) > code {
+  color: var(--pen-blue);
+  background: rgba(0, 0, 205, 0.1);
+  border: 1px solid rgba(0, 0, 205, 0.2);
+}
+
+/* 인용문 - 메모 스타일 */
+blockquote {
+  border-left: 4px solid var(--red-ink) !important;
+  background: rgba(255, 0, 0, 0.05);
+  padding: 1rem;
+  margin: 1rem 0;
+  font-style: normal !important;
+  position: relative;
+}
+
+blockquote::before {
+  content: "📌";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  font-size: 1.5rem;
+}
+
+/* 리스트 스타일 */
+ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
+ol {
+  list-style: none;
+  counter-reset: item;
+  padding-left: 1.5rem;
+}
+
+ol li {
+  counter-increment: item;
+}
+
+ol li::before {
+  content: counter(item) ". ";
+  color: var(--red-ink);
+  font-weight: bold;
+  font-family: var(--font-title);
+}
+
+/* 테이블 스타일 */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+  background: var(--paper-bg);
+}
+
+th {
+  background: var(--pen-blue) !important;
+  color: white !important;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+td {
+  border: 1px dashed #CCC;
+  padding: 0.75rem;
+}
+
+tr:nth-child(even) {
+  background: rgba(0, 0, 205, 0.03);
+}
+
+/* 사이드바 스타일 */
+.nextra-sidebar-container {
+  font-family: var(--font-main) !important;
+}
+
+nav a {
+  border-bottom: none !important;
+}
+
+nav a:hover {
+  border-bottom: none !important;
+}
+
+/* Callout 스타일 */
+.nextra-callout {
+  border-radius: 0 !important;
+  border: 2px solid;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+  font-family: var(--font-main) !important;
+}
+
+/* 검색창 */
+input[type="search"],
+input[type="text"] {
+  font-family: var(--font-main) !important;
+  border: 2px solid var(--pen-blue) !important;
+  border-radius: 0 !important;
+}
+
+/* 네비게이션 버튼 */
+.nextra-nav-link {
+  font-family: var(--font-main) !important;
+}
+
+/* 이전/다음 버튼 */
+.nextra-navigation-links {
+  font-family: var(--font-title) !important;
+}
+
+/* 스크롤바 커스텀 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--paper-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pen-blue);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pen-blue-light);
+}
+
+/* 카드 스타일 */
+.card {
+  border: 2px solid var(--pen-blue);
+  border-radius: 0;
+  box-shadow: 5px 5px 0 rgba(0, 0, 205, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 rgba(0, 0, 205, 0.3);
+}
+
+/* 배너 */
+.nextra-banner {
+  font-family: var(--font-main) !important;
+  background: var(--red-ink) !important;
+}
+
+/* 푸터 */
+footer {
+  font-family: var(--font-main) !important;
+}
+
+/* 손글씨 밑줄 효과 */
+.underline-hand {
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--red-ink);
+}
+
+/* 하이라이트 효과 */
+mark, .highlight {
+  background: linear-gradient(180deg, transparent 60%, #FFFF00 60%);
+  padding: 0 0.2rem;
+}
+
+/* 페이지 제목 영역 */
+.nextra-content > h1:first-child {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(0, 0, 205, 0.05) 0%, transparent 100%);
+  border-left: 5px solid var(--pen-blue);
+}
+
+/* 목차 스타일 */
+.nextra-toc {
+  font-family: var(--font-main) !important;
+}
+
+.nextra-toc a {
+  border-bottom: none !important;
+}
+
+/* 반응형 조정 */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  h3 {
+    font-size: 1.25rem !important;
+  }
+
+  p, li {
+    font-size: 1rem;
+  }
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}

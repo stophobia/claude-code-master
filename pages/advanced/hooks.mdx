@@ -1,0 +1,268 @@
+import { Callout, Tabs } from 'nextra/components'
+
+# 훅 설정
+
+Claude Code 훅 시스템을 통해 도구 실행 전후에 자동으로 커스텀 스크립트를 실행할 수 있습니다.
+
+## 훅 타입
+
+| 타입 | 실행 시점 | 용도 |
+|------|----------|------|
+| **PreToolUse** | 도구 실행 전 | 검증, 파라미터 수정, 차단 |
+| **PostToolUse** | 도구 실행 후 | 자동 포맷, 검사, 알림 |
+| **Stop** | 세션 종료 시 | 최종 검증, 정리 작업 |
+
+## 훅 설정 위치
+
+```bash
+~/.claude/settings.json
+```
+
+## 기본 설정 구조
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "tool == \"Edit\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Before edit'"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "tool == \"Edit\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'After edit'"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+## PreToolUse 훅 예시
+
+### tmux 리마인더
+
+장시간 명령에 tmux 사용을 제안합니다.
+
+```json
+{
+  "matcher": "tool == \"Bash\" && tool_input.command matches \"npm run|yarn|pnpm\"",
+  "hooks": [{
+    "type": "command",
+    "command": "echo '장시간 명령입니다. tmux 사용을 고려하세요.'"
+  }]
+}
+```
+
+### git push 리뷰
+
+푸시 전 에디터에서 리뷰를 엽니다.
+
+```json
+{
+  "matcher": "tool == \"Bash\" && tool_input.command matches \"git push\"",
+  "hooks": [{
+    "type": "command",
+    "command": "echo '푸시 전 변경사항을 검토하세요.'"
+  }]
+}
+```
+
+### 문서 파일 생성 차단
+
+불필요한 .md/.txt 파일 생성을 차단합니다.
+
+```json
+{
+  "matcher": "tool == \"Write\" && tool_input.file_path matches \"\\\\.md$|\\\\.txt$\"",
+  "hooks": [{
+    "type": "command",
+    "command": "echo 'BLOCK: 문서 파일 생성이 차단되었습니다.'"
+  }]
+}
+```
+
+<Callout type="warning">
+  훅 출력에 "BLOCK"이 포함되면 도구 실행이 차단됩니다.
+</Callout>
+
+## PostToolUse 훅 예시
+
+### Prettier 자동 포맷
+
+편집 후 JS/TS 파일을 자동으로 포맷합니다.
+
+```json
+{
+  "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\\\.tsx?$|\\\\.jsx?$\"",
+  "hooks": [{
+    "type": "command",
+    "command": "npx prettier --write \"$CC_TOOL_INPUT_FILE_PATH\""
+  }]
+}
+```
+
+### TypeScript 타입 검사
+
+.ts/.tsx 파일 편집 후 tsc를 실행합니다.
+
+```json
+{
+  "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\\\.tsx?$\"",
+  "hooks": [{
+    "type": "command",
+    "command": "npx tsc --noEmit"
+  }]
+}
+```
+
+### console.log 경고
+
+편집된 파일에서 console.log를 감지합니다.
+
+```json
+{
+  "matcher": "tool == \"Edit\"",
+  "hooks": [{
+    "type": "command",
+    "command": "grep -n 'console.log' \"$CC_TOOL_INPUT_FILE_PATH\" && echo '경고: console.log가 발견되었습니다.'"
+  }]
+}
+```
+
+### PR 생성 알림
+
+PR 생성 후 URL과 GitHub Actions 상태를 로깅합니다.
+
+```json
+{
+  "matcher": "tool == \"Bash\" && tool_input.command matches \"gh pr create\"",
+  "hooks": [{
+    "type": "command",
+    "command": "gh pr view --json url,statusCheckRollup | jq '.'"
+  }]
+}
+```
+
+## Stop 훅 예시
+
+### console.log 감사
+
+세션 종료 전 모든 수정된 파일에서 console.log를 검사합니다.
+
+```json
+{
+  "hooks": [{
+    "type": "command",
+    "command": "git diff --name-only | xargs grep -l 'console.log' 2>/dev/null && echo '경고: console.log가 커밋됩니다.'"
+  }]
+}
+```
+
+## 환경 변수
+
+훅 명령어에서 사용 가능한 환경 변수:
+
+| 변수 | 설명 |
+|------|------|
+| `$CC_TOOL_INPUT_*` | 도구 입력 파라미터 (대문자로 변환) |
+| `$CC_TOOL_OUTPUT_*` | 도구 출력 (PostToolUse에서만) |
+
+예시:
+- `$CC_TOOL_INPUT_FILE_PATH` - Edit 도구의 file_path
+- `$CC_TOOL_INPUT_COMMAND` - Bash 도구의 command
+
+## 매처 문법
+
+매처는 CEL(Common Expression Language) 문법을 사용합니다.
+
+```
+tool == "Edit"                                # 도구 이름 매칭
+tool_input.file_path matches "\\.tsx?$"       # 정규식 매칭
+tool == "Bash" && tool_input.command matches "npm"  # AND 조건
+```
+
+### 자주 사용하는 매처
+
+| 패턴 | 설명 |
+|------|------|
+| `tool == "Edit"` | Edit 도구 호출 |
+| `tool == "Bash"` | Bash 도구 호출 |
+| `tool == "Write"` | Write 도구 호출 |
+| `tool_input.file_path matches "\\.ts$"` | TypeScript 파일 |
+| `tool_input.command matches "git"` | git 명령어 |
+
+## 훅 디버깅
+
+```bash
+# 디버그 모드로 실행
+claude --debug
+
+# 특정 훅 테스트
+echo '{"tool": "Edit", "tool_input": {"file_path": "test.ts"}}' | \
+  jq 'select(.tool == "Edit")'
+```
+
+## 전체 설정 예시
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\\\.tsx?$\"",
+        "hooks": [{
+          "type": "command",
+          "command": "echo 'TypeScript 파일 편집 중...'"
+        }]
+      },
+      {
+        "matcher": "tool == \"Write\" && tool_input.file_path matches \"\\\\.md$\"",
+        "hooks": [{
+          "type": "command",
+          "command": "echo 'BLOCK: 문서 파일 자동 생성 금지'"
+        }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\\\.tsx?$|\\\\.jsx?$\"",
+        "hooks": [{
+          "type": "command",
+          "command": "npx prettier --write \"$CC_TOOL_INPUT_FILE_PATH\""
+        }]
+      },
+      {
+        "matcher": "tool == \"Edit\"",
+        "hooks": [{
+          "type": "command",
+          "command": "grep -n 'console.log' \"$CC_TOOL_INPUT_FILE_PATH\" 2>/dev/null && echo '경고: console.log 발견'"
+        }]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [{
+          "type": "command",
+          "command": "echo '세션이 종료됩니다.'"
+        }]
+      }
+    ]
+  }
+}
+```
+
+<Callout type="error">
+  훅 설정 시 무한 루프에 주의하세요. 훅이 다른 도구를 트리거하지 않도록 설계해야 합니다.
+</Callout>
