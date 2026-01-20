@@ -16,7 +16,7 @@ const config: DocsThemeConfig = {
   project: {
     link: 'https://github.com/revfactory/claude-code-master',
   },
-  docsRepositoryBase: 'https://github.com/revfactory/claude-code-master/tree/main/docs',
+  docsRepositoryBase: 'https://github.com/revfactory/claude-code-master/tree/main',
   useNextSeoProps() {
     const { asPath } = useRouter()
     if (asPath !== '/') {
