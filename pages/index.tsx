@@ -86,20 +86,16 @@ export default function LandingPage() {
             <Link href="/getting-started/introduction" className="btn-gradient" style={{
               textDecoration: 'none',
               fontSize: '1.1rem',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem'
+              color: 'white'
             }}>
-              🚀 시작하기
+              시작하기
             </Link>
             <a href="https://github.com/revfactory/claude-code-master" className="btn-outline" style={{
               textDecoration: 'none',
               fontSize: '1.1rem',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem'
+              color: 'white'
             }}>
-              ⭐ GitHub
+              GitHub
             </a>
           </div>
         </div>
@@ -187,9 +183,10 @@ export default function LandingPage() {
 
           <Link href="/getting-started/introduction" className="btn-gradient" style={{
             textDecoration: 'none',
-            fontSize: '1.1rem'
+            fontSize: '1.1rem',
+            color: 'white'
           }}>
-            📖 문서 읽기
+            문서 읽기
           </Link>
 
           <div style={{
