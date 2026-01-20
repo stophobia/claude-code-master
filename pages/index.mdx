@@ -1,5 +1,3 @@
-import { Callout } from 'nextra/components'
-
 <div className="landing-page" style={{ fontFamily: '"Noto Sans KR", sans-serif' }}>
 
 {/* Hero Section */}
@@ -314,13 +312,27 @@ cp claude-code-master/commands/*.md ~/.claude/commands/`}
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
 
-<Callout type="warning" emoji="⚠️">
-  **컨텍스트 윈도우 관리에 주의하세요!**
-
-  - 모든 MCP를 한 번에 활성화하면 200k 컨텍스트가 70k로 줄어들 수 있습니다
-  - 20-30개 MCP를 설정해두되, 프로젝트당 10개 미만만 활성화하세요
-  - 80개 미만의 도구를 활성 상태로 유지하세요
-</Callout>
+<div style={{
+  background: 'linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%)',
+  border: '1px solid #f0c36d',
+  borderRadius: '12px',
+  padding: '1.5rem 2rem',
+  display: 'flex',
+  gap: '1rem',
+  alignItems: 'flex-start'
+}}>
+  <span style={{ fontSize: '1.5rem' }}>⚠️</span>
+  <div>
+    <strong style={{ color: '#856404', display: 'block', marginBottom: '0.75rem', fontSize: '1.1rem' }}>
+      컨텍스트 윈도우 관리에 주의하세요!
+    </strong>
+    <ul style={{ margin: 0, paddingLeft: '1.25rem', color: '#664d03' }}>
+      <li>모든 MCP를 한 번에 활성화하면 200k 컨텍스트가 70k로 줄어들 수 있습니다</li>
+      <li>20-30개 MCP를 설정해두되, 프로젝트당 10개 미만만 활성화하세요</li>
+      <li>80개 미만의 도구를 활성 상태로 유지하세요</li>
+    </ul>
+  </div>
+</div>
 
 </div>
 
