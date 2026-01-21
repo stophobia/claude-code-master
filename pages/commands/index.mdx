@@ -1,4 +1,5 @@
 import { Callout, Cards, Card } from 'nextra/components'
+import { CommandTable } from '../../components/CommandTable'
 
 # 커맨드 개요
 
@@ -75,17 +76,7 @@ description: 커맨드 설명
 
 ### 1. 언제 어떤 커맨드를 사용할까?
 
-| 상황 | 추천 커맨드 |
-|------|------------|
-| 새 기능 시작 | `/plan` |
-| 테스트와 함께 개발 | `/tdd` |
-| 코드 변경 후 | `/code-review` |
-| 빌드 오류 발생 | `/build-fix` |
-| E2E 테스트 필요 | `/e2e` |
-| 코드 정리 필요 | `/refactor-clean` |
-| 커버리지 확인 | `/test-coverage` |
-| 문서 업데이트 | `/update-docs` |
-| 아키텍처 문서화 | `/update-codemaps` |
+<CommandTable />
 
 ### 2. 커맨드 설치
 

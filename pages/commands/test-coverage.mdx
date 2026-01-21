@@ -1,6 +1,14 @@
 import { Callout } from 'nextra/components'
+import { DownloadMarkdown } from '../../components/DownloadMarkdown'
+import { commandContents } from '../../components/commandContents'
 
 # /test-coverage (커버리지)
+
+<DownloadMarkdown
+  filename="test-coverage.md"
+  content={commandContents['test-coverage']}
+  folderPath="~/.claude/commands/"
+/>
 
 테스트 커버리지를 분석하고 누락된 테스트 생성.
 

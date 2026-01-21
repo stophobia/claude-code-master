@@ -1,6 +1,14 @@
 import { Callout } from 'nextra/components'
+import { DownloadMarkdown } from '../../components/DownloadMarkdown'
+import { commandContents } from '../../components/commandContents'
 
 # /e2e (E2E 테스트)
+
+<DownloadMarkdown
+  filename="e2e.md"
+  content={commandContents['e2e']}
+  folderPath="~/.claude/commands/"
+/>
 
 Playwright로 end-to-end 테스트를 생성하고 실행합니다.
 

@@ -1,6 +1,14 @@
 import { Callout } from 'nextra/components'
+import { DownloadMarkdown } from '../../components/DownloadMarkdown'
+import { commandContents } from '../../components/commandContents'
 
 # /update-docs (문서)
+
+<DownloadMarkdown
+  filename="update-docs.md"
+  content={commandContents['update-docs']}
+  folderPath="~/.claude/commands/"
+/>
 
 진실의 소스에서 문서 동기화.
 

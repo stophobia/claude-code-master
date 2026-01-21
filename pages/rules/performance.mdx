@@ -1,6 +1,14 @@
 import { Callout } from 'nextra/components'
+import { DownloadMarkdown } from '../../components/DownloadMarkdown'
+import { ruleContents } from '../../components/ruleContents'
 
 # 성능
+
+<DownloadMarkdown
+  filename="performance.md"
+  content={ruleContents['performance']}
+  folderPath="~/.claude/rules/"
+/>
 
 모델 선택 및 컨텍스트 윈도우 관리 규칙입니다.
 

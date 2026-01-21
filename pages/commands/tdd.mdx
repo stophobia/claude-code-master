@@ -1,6 +1,14 @@
 import { Callout } from 'nextra/components'
+import { DownloadMarkdown } from '../../components/DownloadMarkdown'
+import { commandContents } from '../../components/commandContents'
 
 # /tdd (테스트)
+
+<DownloadMarkdown
+  filename="tdd.md"
+  content={commandContents['tdd']}
+  folderPath="~/.claude/commands/"
+/>
 
 테스트 주도 개발 워크플로우 강제. 80%+ 커버리지 보장.
 

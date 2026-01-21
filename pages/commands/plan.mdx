@@ -1,6 +1,14 @@
 import { Callout } from 'nextra/components'
+import { DownloadMarkdown } from '../../components/DownloadMarkdown'
+import { commandContents } from '../../components/commandContents'
 
 # /plan (계획)
+
+<DownloadMarkdown
+  filename="plan.md"
+  content={commandContents['plan']}
+  folderPath="~/.claude/commands/"
+/>
 
 요구사항 재진술, 위험 평가, 단계별 구현 계획 생성.
 

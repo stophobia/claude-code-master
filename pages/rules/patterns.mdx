@@ -1,6 +1,14 @@
 import { Callout } from 'nextra/components'
+import { DownloadMarkdown } from '../../components/DownloadMarkdown'
+import { ruleContents } from '../../components/ruleContents'
 
 # 공통 패턴
+
+<DownloadMarkdown
+  filename="patterns.md"
+  content={ruleContents['patterns']}
+  folderPath="~/.claude/rules/"
+/>
 
 자주 사용되는 코드 패턴입니다.
 

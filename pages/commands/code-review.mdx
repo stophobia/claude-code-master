@@ -1,6 +1,14 @@
 import { Callout } from 'nextra/components'
+import { DownloadMarkdown } from '../../components/DownloadMarkdown'
+import { commandContents } from '../../components/commandContents'
 
 # /code-review (코드 리뷰)
+
+<DownloadMarkdown
+  filename="code-review.md"
+  content={commandContents['code-review']}
+  folderPath="~/.claude/commands/"
+/>
 
 커밋되지 않은 변경에 대한 포괄적인 보안 및 품질 리뷰.
 

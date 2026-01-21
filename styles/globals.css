@@ -97,9 +97,19 @@ strong, b {
   font-weight: 600;
 }
 
+html[class~="dark"] strong,
+html[class~="dark"] b {
+  color: #fafafa !important;
+}
+
 em, i {
   color: var(--secondary);
   font-style: italic;
+}
+
+html[class~="dark"] em,
+html[class~="dark"] i {
+  color: #a1a1aa;
 }
 
 /* 링크 스타일 */
@@ -110,9 +120,19 @@ a {
   transition: all 0.15s ease;
 }
 
+html[class~="dark"] a {
+  color: #e4e4e7 !important;
+  border-bottom-color: #3f3f46;
+}
+
 a:hover {
   color: var(--secondary) !important;
   border-bottom-color: var(--secondary);
+}
+
+html[class~="dark"] a:hover {
+  color: #a1a1aa !important;
+  border-bottom-color: #71717a;
 }
 
 /* 코드 블록 */
@@ -147,6 +167,12 @@ html[class~="dark"] code {
   border: 1px solid var(--border-color);
 }
 
+html[class~="dark"] :not(pre) > code {
+  color: #e4e4e7;
+  background: #3f3f46;
+  border-color: #52525b;
+}
+
 /* 인용문 스타일 */
 blockquote {
   border-left: 3px solid var(--border-color) !important;
@@ -154,6 +180,11 @@ blockquote {
   padding: 1rem;
   margin: 1rem 0;
   font-style: normal !important;
+}
+
+html[class~="dark"] blockquote {
+  background: #27272a;
+  border-left-color: #52525b !important;
 }
 
 /* 리스트 스타일 */
@@ -187,6 +218,10 @@ table {
   background: var(--paper-bg);
 }
 
+html[class~="dark"] table {
+  background: #27272a;
+}
+
 th {
   background: var(--primary) !important;
   color: white !important;
@@ -195,13 +230,30 @@ th {
   font-weight: 500;
 }
 
+html[class~="dark"] th {
+  background: #3f3f46 !important;
+  color: #fafafa !important;
+}
+
 td {
   border: 1px solid var(--border-color);
   padding: 0.75rem;
 }
 
+html[class~="dark"] td {
+  border-color: #3f3f46;
+}
+
 tr:nth-child(even) {
   background: #f4f4f5;
+}
+
+html[class~="dark"] tr:nth-child(even) {
+  background: #1f1f23;
+}
+
+html[class~="dark"] tr:nth-child(odd) {
+  background: #27272a;
 }
 
 /* 사이드바 스타일 */
@@ -291,12 +343,23 @@ mark, .highlight {
   border-radius: 2px;
 }
 
+html[class~="dark"] mark,
+html[class~="dark"] .highlight {
+  background: #78716c;
+  color: #fafafa;
+}
+
 /* 페이지 제목 영역 */
 .nextra-content > h1:first-child {
   margin-top: 2rem;
   padding: 1rem;
   background: #f4f4f5;
   border-left: 3px solid var(--primary);
+}
+
+html[class~="dark"] .nextra-content > h1:first-child {
+  background: #27272a;
+  border-left-color: #71717a;
 }
 
 /* 목차 스타일 */
@@ -474,6 +537,16 @@ html[class~="dark"] .feature-card:hover {
 .btn-outline:hover {
   border-color: #a1a1aa;
   background: #f4f4f5;
+}
+
+html[class~="dark"] .btn-outline {
+  color: #fafafa !important;
+  border-color: #3f3f46;
+}
+
+html[class~="dark"] .btn-outline:hover {
+  border-color: #71717a;
+  background: #27272a;
 }
 
 .section-divider {

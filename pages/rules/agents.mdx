@@ -1,6 +1,14 @@
 import { Callout } from 'nextra/components'
+import { DownloadMarkdown } from '../../components/DownloadMarkdown'
+import { ruleContents } from '../../components/ruleContents'
 
 # 에이전트 오케스트레이션
+
+<DownloadMarkdown
+  filename="agents.md"
+  content={ruleContents['agents']}
+  folderPath="~/.claude/rules/"
+/>
 
 에이전트를 효과적으로 사용하는 규칙입니다.
 

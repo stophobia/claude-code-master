@@ -1,6 +1,14 @@
 import { Callout } from 'nextra/components'
+import { DownloadMarkdown } from '../../components/DownloadMarkdown'
+import { commandContents } from '../../components/commandContents'
 
 # /build-fix (빌드 수정)
+
+<DownloadMarkdown
+  filename="build-fix.md"
+  content={commandContents['build-fix']}
+  folderPath="~/.claude/commands/"
+/>
 
 TypeScript 및 빌드 오류를 점진적으로 수정.
 

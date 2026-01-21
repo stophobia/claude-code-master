@@ -1,6 +1,14 @@
 import { Callout } from 'nextra/components'
+import { DownloadMarkdown } from '../../components/DownloadMarkdown'
+import { ruleContents } from '../../components/ruleContents'
 
 # 보안
+
+<DownloadMarkdown
+  filename="security.md"
+  content={ruleContents['security']}
+  folderPath="~/.claude/rules/"
+/>
 
 모든 코드에 적용되는 필수 보안 규칙입니다.
 

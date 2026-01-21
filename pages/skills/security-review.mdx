@@ -1,6 +1,14 @@
 import { Callout, Tabs } from 'nextra/components'
+import { DownloadMarkdown } from '../../components/DownloadMarkdown'
+import { skillContents } from '../../components/skillContents'
 
 # 보안 리뷰
+
+<DownloadMarkdown
+  filename="security-review.md"
+  content={skillContents['security-review']}
+  folderPath="~/.claude/skills/"
+/>
 
 모든 코드가 보안 모범 사례를 따르고 잠재적 취약점을 식별하도록 보장합니다.
 

@@ -1,17 +1,25 @@
 import React from 'react'
-import { DocsThemeConfig, useConfig } from 'nextra-theme-docs'
+import { DocsThemeConfig, useConfig, useTheme } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
-const config: DocsThemeConfig = {
-  logo: (
+
+function Logo() {
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme === 'dark'
+
+  return (
     <span style={{
       fontFamily: '"Noto Sans KR", sans-serif',
       fontSize: '1.3rem',
       fontWeight: 700,
-      color: '#18181b'
+      color: isDark ? '#fafafa' : '#18181b'
     }}>
       Claude Code 마스터
     </span>
-  ),
+  )
+}
+
+const config: DocsThemeConfig = {
+  logo: <Logo />,
   project: {
     link: 'https://github.com/revfactory/claude-code-master',
   },
