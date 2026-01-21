@@ -39,7 +39,7 @@ const config: DocsThemeConfig = {
     const { title, frontMatter } = useConfig()
     const { asPath } = useRouter()
 
-    const siteUrl = 'https://claude-code-master.vercel.app'
+    const siteUrl = 'https://claudecode-master.netlify.app'
     const pageTitle = title ? `${title} – Claude Code 마스터` : 'Claude Code 마스터 - Claude Code 설정 완전 가이드'
     const description = frontMatter.description || 'Claude Code 설정 완전 가이드 - 에이전트, 스킬, 훅, 커맨드, 규칙을 활용한 AI 코딩 어시스턴트 마스터하기'
     const ogImage = `${siteUrl}/everything-claude-coding.png`

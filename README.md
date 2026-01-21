@@ -2,7 +2,7 @@
 
 Claude Code 설정 완전 가이드 - 에이전트, 커맨드, 스킬, 규칙을 활용한 AI 코딩 어시스턴트 마스터하기
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/revfactory/claude-code-master)
+**사이트:** [https://claudecode-master.netlify.app](https://claudecode-master.netlify.app)
 
 ## 소개
 
@@ -138,13 +138,11 @@ claude-code-master/
 
 ## 배포
 
-### Vercel
+이 프로젝트는 [Netlify](https://www.netlify.com/)에 배포되어 있습니다.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/revfactory/claude-code-master)
+`netlify.toml` 설정이 포함되어 있어 Netlify에 쉽게 배포할 수 있습니다.
 
-### Netlify
-
-`netlify.toml` 설정이 포함되어 있어 Netlify에도 쉽게 배포할 수 있습니다.
+[![Netlify Status](https://api.netlify.com/api/v1/badges/your-badge-id/deploy-status)](https://app.netlify.com/sites/claudecode-master/deploys)
 
 ## 기여하기
 
@@ -162,5 +160,6 @@ MIT License
 
 ## 링크
 
+- [사이트](https://claudecode-master.netlify.app)
 - [Claude Code 공식 문서](https://docs.anthropic.com/en/docs/claude-code)
 - [GitHub 저장소](https://github.com/revfactory/claude-code-master)
