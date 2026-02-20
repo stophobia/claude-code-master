@@ -1,0 +1,609 @@
+import { Callout, Tabs } from 'nextra/components'
+
+# Anthropic Skills
+
+Anthropic에서 공식 제공하는 16개 스킬 모음입니다. Claude Code의 기능을 확장하여 문서 처리, 디자인, 브랜딩, 개발 워크플로우 등 다양한 영역을 지원합니다.
+
+<Callout type="info">
+  모든 스킬은 [GitHub 저장소](https://github.com/anthropics/skills)에서 확인하고 다운로드할 수 있습니다.
+</Callout>
+
+## 전체 스킬 목록
+
+| # | 스킬 | 카테고리 | 설명 | GitHub |
+|---|------|----------|------|--------|
+| 1 | PDF | 문서 처리 | PDF 종합 처리 (읽기, 생성, 편집, 병합, OCR 등) | [바로가기](https://github.com/anthropics/skills/tree/main/skills/pdf) |
+| 2 | DOCX | 문서 처리 | Word 문서 생성, 편집, 변경 추적 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/docx) |
+| 3 | XLSX | 문서 처리 | 스프레드시트 생성, 수식, 재무 모델링 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/xlsx) |
+| 4 | PPTX | 문서 처리 | 프레젠테이션 생성, 디자인 가이드라인 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/pptx) |
+| 5 | Frontend Design | 디자인 | 프로덕션 수준 프론트엔드 UI 제작 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/frontend-design) |
+| 6 | Canvas Design | 디자인 | 시각 아트/포스터 제작 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/canvas-design) |
+| 7 | Algorithmic Art | 디자인 | p5.js 제너레이티브 아트 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/algorithmic-art) |
+| 8 | Web Artifacts Builder | 스타일링 | Claude 아티팩트 빌더 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder) |
+| 9 | Theme Factory | 스타일링 | 10가지 프리셋 테마 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/theme-factory) |
+| 10 | Brand Guidelines | 브랜딩 | Anthropic 브랜드 가이드 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/brand-guidelines) |
+| 11 | Doc Co-Authoring | 워크플로우 | 문서 공동 작성 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring) |
+| 12 | Internal Comms | 워크플로우 | 사내 커뮤니케이션 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/internal-comms) |
+| 13 | Skill Creator | 도구 | 스킬 생성 도구 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/skill-creator) |
+| 14 | MCP Builder | 도구 | MCP 서버 개발 가이드 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/mcp-builder) |
+| 15 | Webapp Testing | 도구 | Playwright 웹앱 테스팅 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/webapp-testing) |
+| 16 | Slack GIF Creator | 디자인 | Slack용 GIF 제작 | [바로가기](https://github.com/anthropics/skills/tree/main/skills/slack-gif-creator) |
+
+---
+
+## 문서/파일 처리
+
+### 1. PDF
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/pdf)
+
+PDF 파일과 관련된 모든 작업을 처리하는 종합 스킬입니다. 읽기, 생성, 편집, 병합, 분할, 폼 작성, 암호화 등 PDF 관련 전 기능을 지원합니다.
+
+#### 주요 기능
+
+| 기능 | 설명 | 사용 도구 |
+|------|------|-----------|
+| 텍스트 추출 | PDF에서 텍스트 추출 (레이아웃 유지 포함) | pdfplumber, pdftotext |
+| 테이블 추출 | 표 데이터를 추출하여 DataFrame/Excel 변환 | pdfplumber + pandas |
+| PDF 병합 | 여러 PDF를 하나로 합치기 | pypdf, qpdf |
+| PDF 분할 | 하나의 PDF를 페이지별 분리 | pypdf, qpdf |
+| 페이지 회전 | 특정 페이지 회전 | pypdf, qpdf |
+| PDF 생성 | 새 PDF 문서 생성 (텍스트, 표, 도형 포함) | reportlab |
+| 폼 작성 | 입력 가능/불가능 폼 자동 입력 | pypdf, pdf-lib |
+| 암호화/복호화 | 비밀번호 설정 및 해제 | pypdf, qpdf |
+| OCR | 스캔된 PDF 텍스트 인식 | pytesseract + pdf2image |
+| 이미지 추출 | 임베디드 이미지 추출 | pdfimages (poppler) |
+| 워터마크 | 워터마크 오버레이 추가 | pypdf |
+| PDF 크롭 | 특정 영역 잘라내기 | pypdf |
+| PDF 복구 | 손상된 구조 수정 | qpdf |
+| 웹 최적화 | 스트리밍용 리니어라이즈 | qpdf |
+
+#### 트리거 조건
+
+- `.pdf` 파일을 언급하거나 생성 요청 시
+- PDF 읽기, 편집, 변환, 병합, 분할 등 요청 시
+
+#### 번들 리소스
+
+- `scripts/` - 폼 필드 분석, 폼 작성, PDF 이미지 변환 스크립트
+- `reference.md` - 고급 기능 (pypdfium2, JS 라이브러리, CLI 고급 사용법)
+- `forms.md` - 폼 작성 전용 가이드 (Fillable/Non-fillable 양식 모두 지원)
+
+---
+
+### 2. DOCX
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/docx)
+
+Word 문서(.docx) 생성, 읽기, 편집, 분석을 위한 스킬입니다. XML 기반의 정밀한 편집과 변경 추적(Tracked Changes), 코멘트 기능을 지원합니다.
+
+#### 주요 기능
+
+| 기능 | 설명 | 사용 도구 |
+|------|------|-----------|
+| 새 문서 생성 | JavaScript(docx-js)로 전문적인 문서 생성 | docx (npm) |
+| 기존 문서 편집 | Unpack → XML 편집 → Repack 워크플로우 | 전용 스크립트 |
+| 텍스트 추출 | 변경 추적 포함 텍스트 추출 | pandoc |
+| 변경 추적 | 삽입/삭제/수정 추적 (Tracked Changes) | XML 직접 편집 |
+| 코멘트 추가 | 문서에 코멘트 및 답글 추가 | comment.py 스크립트 |
+| 이미지 삽입 | 문서 내 이미지 추가 | XML + 미디어 파일 |
+| 목차 생성 | 자동 목차(TOC) 생성 | docx-js |
+| 머리글/바닥글 | 헤더/푸터, 페이지 번호 | docx-js |
+| 스타일링 | 제목, 본문, 테이블 스타일 커스터마이징 | docx-js |
+| .doc 변환 | 레거시 .doc → .docx 변환 | LibreOffice |
+
+#### 트리거 조건
+
+- "Word doc", ".docx", "보고서", "메모", "편지" 등 Word 문서 관련 요청 시
+- 전문 문서 포맷팅(목차, 페이지 번호, 레터헤드 등) 요청 시
+
+<Callout type="warning">
+  **핵심 규칙**
+  - `\n` 대신 별도 Paragraph 사용
+  - 유니코드 불릿 사용 금지 → `LevelFormat.BULLET` 사용
+  - 테이블은 반드시 `columnWidths` + 셀 `width` 이중 설정
+  - `WidthType.PERCENTAGE` 금지 → 항상 `WidthType.DXA` 사용
+</Callout>
+
+---
+
+### 3. XLSX
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/xlsx)
+
+스프레드시트 파일(.xlsx, .xlsm, .csv, .tsv) 생성, 편집, 분석을 위한 스킬입니다. 재무 모델링, 데이터 분석, 차트 생성 등을 지원하며, Excel 수식 사용을 강력히 권장합니다.
+
+#### 주요 기능
+
+| 기능 | 설명 | 사용 도구 |
+|------|------|-----------|
+| 데이터 분석 | 데이터 읽기, 통계, 시각화 | pandas |
+| 파일 생성 | 새 Excel 파일 생성 (수식, 포맷 포함) | openpyxl |
+| 파일 편집 | 기존 파일 수정 (수식/서식 보존) | openpyxl |
+| 수식 재계산 | LibreOffice 기반 수식 값 재계산 | scripts/recalc.py |
+| 재무 모델링 | 색상 코딩, 숫자 포맷, 수식 규칙 적용 | openpyxl |
+| 오류 검증 | #REF!, #DIV/0! 등 수식 오류 자동 탐지 | scripts/recalc.py |
+
+#### 트리거 조건
+
+- 스프레드시트 파일이 입력 또는 출력의 주 대상일 때
+- .xlsx, .xlsm, .csv, .tsv 파일 언급 시
+- 표 데이터 정리/재구성 요청 시
+
+<Callout type="warning">
+  **핵심 규칙**
+  - **수식 우선**: Python에서 계산 후 하드코딩 금지 → 항상 Excel 수식 사용
+  - **재무 모델 색상 규칙**: 파란 글씨(입력값), 검은 글씨(수식), 초록 글씨(시트 간 참조), 빨간 글씨(외부 참조), 노란 배경(핵심 가정)
+  - **수식 후 반드시 `recalc.py` 실행**하여 값 재계산
+  - **오류 제로** 목표: 모든 수식 오류 해결 후 납품
+</Callout>
+
+---
+
+### 4. PPTX
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/pptx)
+
+PowerPoint 프레젠테이션(.pptx) 생성, 읽기, 편집을 위한 스킬입니다. 디자인 가이드라인, 색상 팔레트, 타이포그래피, 레이아웃 권장사항을 포함합니다.
+
+#### 주요 기능
+
+| 기능 | 설명 | 사용 도구 |
+|------|------|-----------|
+| 콘텐츠 읽기 | 텍스트 추출 및 분석 | markitdown |
+| 템플릿 기반 편집 | Unpack → 슬라이드 조작 → Repack | 전용 스크립트 |
+| 처음부터 생성 | 새 프레젠테이션 제작 | pptxgenjs (npm) |
+| 썸네일 생성 | 슬라이드 미리보기 이미지 생성 | thumbnail.py |
+| 이미지 변환 | PPTX → PDF → JPG 변환 | LibreOffice + pdftoppm |
+| 비주얼 QA | 서브에이전트로 시각적 품질 검수 | Playwright |
+
+#### 트리거 조건
+
+- "덱", "슬라이드", "프레젠테이션", ".pptx" 언급 시
+- 발표 자료 생성/편집/읽기 요청 시
+
+#### 디자인 가이드라인
+
+<Tabs items={['색상 팔레트', '타이포그래피', '레이아웃']}>
+  <Tabs.Tab>
+    10가지 프리셋 테마 제공:
+    - Midnight Executive
+    - Forest & Moss
+    - Coral Energy
+    - 등 7가지 추가 테마
+  </Tabs.Tab>
+  <Tabs.Tab>
+    - **헤더**: 36-44pt
+    - **본문**: 14-16pt
+    - **캡션**: 10-12pt
+  </Tabs.Tab>
+  <Tabs.Tab>
+    - 2컬럼, 아이콘+텍스트, 그리드, 하프블리드 이미지
+    - **금지**: 동일 레이아웃 반복, 텍스트만 있는 슬라이드, 제목 아래 액센트 라인
+  </Tabs.Tab>
+</Tabs>
+
+---
+
+## 디자인/비주얼
+
+### 5. Frontend Design
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/frontend-design)
+
+독창적이고 프로덕션 수준의 프론트엔드 인터페이스를 만드는 스킬입니다. "AI 슬롭" 미학을 피하고, 대담하고 기억에 남는 UI를 생성합니다.
+
+#### 주요 기능
+
+| 기능 | 설명 |
+|------|------|
+| 웹 컴포넌트 제작 | React, Vue, HTML/CSS/JS 등으로 UI 구현 |
+| 디자인 사고 | 목적, 톤, 차별점 기반의 대담한 미적 방향 설정 |
+| 타이포그래피 | 독특하고 아름다운 폰트 선택 (Arial, Inter 등 기본 폰트 지양) |
+| 색상/테마 | CSS 변수 기반 일관된 색상 시스템 구축 |
+| 모션/애니메이션 | 마이크로 인터랙션, 스크롤 트리거, 호버 효과 |
+| 공간 구성 | 비대칭, 오버랩, 대각선 흐름 등 독창적 레이아웃 |
+| 배경/디테일 | 그래디언트 메시, 노이즈 텍스처, 기하학 패턴, 그레인 오버레이 |
+
+#### 트리거 조건
+
+- 웹사이트, 랜딩 페이지, 대시보드, React 컴포넌트 제작 요청 시
+- UI 스타일링/미화 요청 시
+
+<Callout type="info">
+  **핵심 철학**
+  - 보편적인 AI 생성 미학 (Inter, 보라 그라디언트, 예측 가능한 레이아웃) 금지
+  - 매번 다른 테마, 폰트, 미학 적용
+  - 맥시멀리즘이든 미니멀리즘이든 의도적으로 실행
+</Callout>
+
+---
+
+### 6. Canvas Design
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/canvas-design)
+
+디자인 철학 기반의 시각 아트를 .png/.pdf로 생성하는 스킬입니다. 포스터, 아트 작품, 디자인 등 정적인 비주얼 제작에 특화되어 있습니다.
+
+#### 주요 기능
+
+| 기능 | 설명 |
+|------|------|
+| 디자인 철학 생성 | 미적 운동/매니페스토 작성 (.md 파일) |
+| 캔버스 제작 | 철학 기반 시각 아트 생성 (.pdf/.png 파일) |
+| 멀티페이지 | 다중 페이지 커피테이블 북 스타일 |
+| 커스텀 폰트 | canvas-fonts 디렉토리의 폰트 활용 |
+
+#### 2단계 워크플로우
+
+1. **디자인 철학 생성**: 4-6 문단의 시각적 매니페스토 작성
+   - 예시: "Brutalist Joy", "Chromatic Silence", "Metabolist Dreams"
+2. **캔버스 제작**: 철학을 시각적으로 표현
+
+<Callout type="info">
+  **핵심 원칙**
+  - 텍스트는 최소화 - 시각적 요소로만 활용
+  - 반복 패턴, 완벽한 도형, 체계적인 관찰의 시각 언어
+  - 박물관/잡지 품질의 결과물 추구
+  - 2차 정제 패스 필수 (기존 요소를 다듬는 방향)
+</Callout>
+
+---
+
+### 7. Algorithmic Art
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/algorithmic-art)
+
+p5.js를 사용한 제너레이티브/알고리즘 아트 생성 스킬입니다. 시드 기반 랜덤성과 인터랙티브 파라미터 탐색을 지원합니다.
+
+#### 주요 기능
+
+| 기능 | 설명 |
+|------|------|
+| 알고리즘 철학 | 계산적 미학 운동의 매니페스토 작성 (.md) |
+| p5.js 구현 | 철학 기반 제너레이티브 아트 코드 작성 |
+| 인터랙티브 뷰어 | Anthropic 브랜딩 기반 단일 HTML 아티팩트 |
+| 시드 네비게이션 | Prev/Next/Random/Jump 시드 탐색 |
+| 파라미터 컨트롤 | 슬라이더, 컬러 피커 등 실시간 조작 |
+| 변형 탐색 | 시드 공간을 통한 다양한 변형 발견 |
+
+#### 2단계 워크플로우
+
+1. **알고리즘 철학**: 계산적 세계관 작성
+   - 예시: "Organic Turbulence", "Quantum Harmonics", "Recursive Whispers"
+2. **p5.js 구현**: 철학을 코드로 표현
+
+#### 기술 요구사항
+
+- 시드 기반 랜덤성 (Art Blocks 패턴)
+- `templates/viewer.html` 템플릿 기반 시작
+- 단일 자체 완결형 HTML 파일 출력
+- p5.js CDN 사용
+
+---
+
+## 스타일링/브랜딩
+
+### 8. Web Artifacts Builder
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder)
+
+Claude.ai용 복잡한 HTML 아티팩트를 React + TypeScript + Tailwind CSS + shadcn/ui로 빌드하는 스킬입니다.
+
+#### 주요 기능
+
+| 기능 | 설명 |
+|------|------|
+| 프로젝트 초기화 | React + TS + Vite + Tailwind + shadcn/ui 자동 설정 |
+| 컴포넌트 라이브러리 | 40+ shadcn/ui 컴포넌트 프리 인스톨 |
+| 번들링 | 전체 앱을 단일 HTML 파일로 번들 |
+| 아티팩트 공유 | Claude 대화에서 바로 사용 가능 |
+
+#### 워크플로우
+
+```
+init-artifact.sh → 개발 → bundle-artifact.sh → bundle.html 공유
+```
+
+#### 기술 스택
+
+- React 18 + TypeScript + Vite
+- Parcel (번들링) + html-inline
+- Tailwind CSS 3.4.1
+- shadcn/ui + Radix UI
+- Node 18+ 호환
+
+#### 트리거 조건
+
+- 상태 관리, 라우팅, shadcn/ui 컴포넌트가 필요한 복잡한 아티팩트
+- 단순 HTML/JSX에는 불필요
+
+---
+
+### 9. Theme Factory
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/theme-factory)
+
+슬라이드, 문서, 보고서, 랜딩 페이지 등에 적용할 수 있는 10가지 프리셋 테마를 제공하는 스타일링 스킬입니다.
+
+#### 제공 테마
+
+| # | 테마명 | 특징 |
+|---|--------|------|
+| 1 | Ocean Depths | 전문적이고 차분한 해양 테마 |
+| 2 | Sunset Boulevard | 따뜻하고 생동감 있는 석양 색상 |
+| 3 | Forest Canopy | 자연적이고 안정감 있는 어스 톤 |
+| 4 | Modern Minimalist | 깔끔하고 현대적인 그레이스케일 |
+| 5 | Golden Hour | 풍부하고 따뜻한 가을 팔레트 |
+| 6 | Arctic Frost | 시원하고 선명한 겨울 테마 |
+| 7 | Desert Rose | 부드럽고 세련된 더스티 톤 |
+| 8 | Tech Innovation | 대담하고 현대적인 테크 미학 |
+| 9 | Botanical Garden | 신선하고 유기적인 가든 색상 |
+| 10 | Midnight Galaxy | 극적이고 우주적인 딥 톤 |
+
+#### 각 테마 포함 사항
+
+- 색상 팔레트 (hex 코드)
+- 폰트 페어링 (헤더 + 본문)
+- 시각적 아이덴티티
+
+#### 사용법
+
+1. `theme-showcase.pdf`로 전체 테마 미리보기
+2. 테마 선택
+3. 선택한 테마를 아티팩트에 적용
+4. 기존 테마가 맞지 않으면 **커스텀 테마 생성** 가능
+
+---
+
+### 10. Brand Guidelines
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/brand-guidelines)
+
+Anthropic의 공식 브랜드 색상과 타이포그래피를 아티팩트에 적용하는 스킬입니다.
+
+#### 브랜드 색상
+
+| 구분 | 색상 | Hex | 용도 |
+|------|------|-----|------|
+| Dark | ■ | `#141413` | 기본 텍스트, 어두운 배경 |
+| Light | □ | `#faf9f5` | 밝은 배경, 어두운 배경 위 텍스트 |
+| Mid Gray | ■ | `#b0aea5` | 보조 요소 |
+| Light Gray | ■ | `#e8e6dc` | 미묘한 배경 |
+| Orange | ■ | `#d97757` | 주 액센트 |
+| Blue | ■ | `#6a9bcc` | 보조 액센트 |
+| Green | ■ | `#788c5d` | 3차 액센트 |
+
+#### 타이포그래피
+
+<Tabs items={['제목', '본문']}>
+  <Tabs.Tab>
+    - **폰트**: Poppins (Arial 폴백)
+    - **크기**: 24pt 이상
+    - **용도**: 슬라이드 제목, 섹션 헤더
+  </Tabs.Tab>
+  <Tabs.Tab>
+    - **폰트**: Lora (Georgia 폴백)
+    - **용도**: 본문 텍스트, 설명, 캡션
+  </Tabs.Tab>
+</Tabs>
+
+#### 적용 기능
+
+- 제목/본문 자동 폰트 적용
+- 배경 기반 스마트 색상 선택
+- 도형/액센트에 브랜드 색상 순환 적용
+
+---
+
+## 워크플로우/도구
+
+### 11. Doc Co-Authoring
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring)
+
+문서를 공동 작성하기 위한 구조화된 3단계 워크플로우를 제공하는 스킬입니다. 기술 스펙, 제안서, 의사결정 문서 등에 활용합니다.
+
+#### 3단계 워크플로우
+
+<Tabs items={['Stage 1: 컨텍스트 수집', 'Stage 2: 다듬기', 'Stage 3: 독자 테스트']}>
+  <Tabs.Tab>
+    - 문서 유형, 독자, 목적 등 메타 정보 파악
+    - 프로젝트 배경, 기술 아키텍처, 이해관계자 우려사항 등 정보 덤프
+    - 5-10개 질문으로 갭 분석
+  </Tabs.Tab>
+  <Tabs.Tab>
+    - 섹션별 순차 작성
+    - 각 섹션: 질문 → 5-20개 아이디어 브레인스토밍 → 큐레이션 → 초안 → 반복 정제
+    - 80% 완료 시 전체 문서 일관성 검토
+  </Tabs.Tab>
+  <Tabs.Tab>
+    - 신선한 Claude 인스턴스(컨텍스트 없음)로 문서 테스트
+    - 5-10개 예상 질문으로 검증
+    - 모호성, 가정, 모순 확인
+    - 문제점 발견 시 Stage 2로 돌아가 수정
+  </Tabs.Tab>
+</Tabs>
+
+#### 트리거 조건
+
+- "문서 작성", "제안서 초안", "스펙 작성", "PRD", "디자인 문서", "RFC" 등 언급 시
+
+---
+
+### 12. Internal Comms
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/internal-comms)
+
+사내 커뮤니케이션 작성을 위한 가이드라인과 템플릿을 제공하는 스킬입니다.
+
+#### 지원 문서 유형
+
+| 유형 | 가이드 파일 |
+|------|------------|
+| 3P 업데이트 (Progress/Plans/Problems) | `examples/3p-updates.md` |
+| 사내 뉴스레터 | `examples/company-newsletter.md` |
+| FAQ 응답 | `examples/faq-answers.md` |
+| 기타 (상태 보고서, 리더십 업데이트, 인시던트 보고서 등) | `examples/general-comms.md` |
+
+#### 트리거 조건
+
+- 3P 업데이트, 뉴스레터, FAQ, 상태 보고서, 프로젝트 업데이트, 인시던트 보고서 작성 요청 시
+- "사내 커뮤니케이션", "주간 업데이트" 등 키워드
+
+---
+
+### 13. Skill Creator
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/skill-creator)
+
+새로운 스킬을 생성하거나 기존 스킬을 업데이트하기 위한 가이드 스킬입니다.
+
+#### 스킬 구조
+
+```
+skill-name/
+├── SKILL.md          (필수 - 프론트매터 + 지침)
+├── scripts/          (선택 - 실행 가능한 코드)
+├── references/       (선택 - 참조 문서)
+└── assets/           (선택 - 출력에 사용되는 파일)
+```
+
+#### 핵심 설계 원칙
+
+- **간결성**: Claude가 이미 아는 것은 생략, 토큰 비용 정당화
+- **자유도 조절**: 작업의 취약성/변동성에 따라 지침의 구체성 조절
+- **점진적 공개**: 메타데이터(항상) → SKILL.md(트리거 시) → 번들 리소스(필요 시)
+
+#### 6단계 생성 프로세스
+
+1. **이해**: 구체적 사용 예시 파악
+2. **계획**: 재사용 가능한 리소스(스크립트, 참조, 에셋) 식별
+3. **초기화**: `scripts/init_skill.py` 실행
+4. **편집**: 리소스 구현 및 SKILL.md 작성
+5. **패키징**: `scripts/package_skill.py`로 .skill 파일 생성
+6. **반복**: 실사용 기반 개선
+
+---
+
+### 14. MCP Builder
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/mcp-builder)
+
+LLM이 외부 서비스와 상호작용할 수 있는 MCP(Model Context Protocol) 서버를 구축하기 위한 가이드 스킬입니다.
+
+#### 4단계 개발 프로세스
+
+| 단계 | 설명 |
+|------|------|
+| Phase 1: 리서치 & 계획 | MCP 프로토콜, API 문서 학습, 도구 설계 |
+| Phase 2: 구현 | 프로젝트 구조 설정, 인프라 구축, 도구 구현 |
+| Phase 3: 리뷰 & 테스트 | 코드 품질 검토, 빌드, MCP Inspector 테스트 |
+| Phase 4: 평가 생성 | 10개 평가 질문 생성 및 검증 (XML 형식) |
+
+#### 지원 언어
+
+<Tabs items={['TypeScript (권장)', 'Python']}>
+  <Tabs.Tab>
+    - Zod 스키마 기반 타입 검증
+    - `server.registerTool` API
+    - 참조: `reference/node_mcp_server.md`
+  </Tabs.Tab>
+  <Tabs.Tab>
+    - Pydantic 모델 기반 타입 검증
+    - FastMCP `@mcp.tool` 데코레이터
+    - 참조: `reference/python_mcp_server.md`
+  </Tabs.Tab>
+</Tabs>
+
+#### 핵심 설계 원칙
+
+- 포괄적 API 커버리지 + 워크플로우 도구 균형
+- 명확한 도구 네이밍 (일관된 접두사, 액션 지향)
+- 간결한 도구 설명과 필터링/페이지네이션 지원
+- 실행 가능한 에러 메시지 (해결 방법 제안 포함)
+
+---
+
+### 15. Webapp Testing
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/webapp-testing)
+
+Playwright를 사용하여 로컬 웹 앱을 테스트하는 스킬입니다. UI 기능 검증, 디버깅, 스크린샷 캡처, 브라우저 로그 확인을 지원합니다.
+
+#### 주요 기능
+
+| 기능 | 설명 |
+|------|------|
+| 서버 관리 | `scripts/with_server.py`로 서버 라이프사이클 관리 |
+| 멀티 서버 | 백엔드 + 프론트엔드 동시 실행 |
+| DOM 검사 | 렌더링된 상태에서 셀렉터 발견 |
+| 스크린샷 | 전체 페이지 스크린샷 캡처 |
+| 자동화 | Playwright 기반 브라우저 자동화 |
+
+#### 의사결정 트리
+
+```
+정적 HTML? → HTML 직접 읽기 → 셀렉터 파악 → Playwright 스크립트
+동적 웹앱? → 서버 실행 중?
+  - No → with_server.py 사용
+  - Yes → 정찰 → 스크린샷/DOM → 셀렉터 발견 → 액션 실행
+```
+
+<Callout type="info">
+  **핵심 패턴**
+  - **Reconnaissance-Then-Action**: 먼저 탐색 후 액션 실행
+  - `networkidle` 대기 필수 (동적 앱)
+  - 번들 스크립트는 블랙박스로 사용 (`--help` 먼저 실행)
+</Callout>
+
+---
+
+### 16. Slack GIF Creator
+
+[GitHub에서 보기 →](https://github.com/anthropics/skills/tree/main/skills/slack-gif-creator)
+
+Slack에 최적화된 애니메이션 GIF를 제작하는 스킬입니다. PIL 기반 그래픽, 이징 함수, 유효성 검사 도구를 제공합니다.
+
+#### Slack 요구사항
+
+| 구분 | 사양 |
+|------|------|
+| 이모지 GIF | 128x128px, 3초 이내 |
+| 메시지 GIF | 480x480px |
+| FPS | 10-30 |
+| 색상 수 | 48-128 |
+
+#### 핵심 유틸리티
+
+| 모듈 | 기능 |
+|------|------|
+| `GIFBuilder` | 프레임 조립 및 Slack 최적화 저장 |
+| `validators` | GIF가 Slack 요구사항 충족하는지 검증 |
+| `easing` | 부드러운 모션을 위한 이징 함수 (bounce, elastic, back 등) |
+| `frame_composer` | 빈 프레임, 그래디언트 배경, 도형 헬퍼 |
+
+#### 지원 애니메이션 패턴
+
+<Tabs items={['움직임', '효과']}>
+  <Tabs.Tab>
+    - 흔들기/진동 (Shake/Vibrate)
+    - 바운스 (Bounce)
+    - 회전 (Spin/Rotate)
+    - 슬라이드 (Slide)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    - 펄스/심장박동 (Pulse/Heartbeat)
+    - 페이드 인/아웃 (Fade)
+    - 줌 (Zoom)
+    - 파티클 폭발 (Explode/Particle Burst)
+  </Tabs.Tab>
+</Tabs>
+
+#### 최적화 전략
+
+- 프레임 수 줄이기 (FPS 낮추기)
+- 색상 수 줄이기 (48 → 더 작은 파일)
+- 크기 줄이기 (128x128)
+- 중복 프레임 제거
+- `optimize_for_emoji=True` 자동 최적화
