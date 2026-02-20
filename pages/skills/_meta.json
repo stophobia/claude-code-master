@@ -1,9 +1,6 @@
 {
   "index": "개요",
   "anthropic-skills": "Anthropic Skills",
-  "---": {
-    "type": "separator"
-  },
   "coding-standards": "코딩 표준",
   "backend-patterns": "백엔드 패턴",
   "frontend-patterns": "프론트엔드 패턴",
